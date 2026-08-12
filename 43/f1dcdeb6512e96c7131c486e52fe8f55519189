@@ -1,0 +1,19 @@
+docs/说明文档.md
+  s_b7bcfdc0fec7d2::t_3fc91fdd0c93d6 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "43f1dcdeb6512e96c7131c486e52fe8f55519189",
+  "prompts": {},
+  "sessions": {
+    "s_b7bcfdc0fec7d2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff5ed-659d-7990-8ebe-ee123108116c",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    }
+  }
+}

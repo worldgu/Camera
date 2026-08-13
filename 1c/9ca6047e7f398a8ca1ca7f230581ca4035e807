@@ -1,0 +1,31 @@
+.gitignore
+  s_0c2b015906d56e::t_a2715874acbca5 6-7
+.github/workflows/deploy.yml
+  s_04e45986a2af5a::t_affe4b2a6162d0 1-50
+package.json
+  s_04e45986a2af5a::t_f0e9796ea64e2c 10-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "1c9ca6047e7f398a8ca1ca7f230581ca4035e807",
+  "prompts": {},
+  "sessions": {
+    "s_04e45986a2af5a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff9c6-e737-77a2-b134-f7b0c50f3d76",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    },
+    "s_0c2b015906d56e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aee0c3cd-d932-48cf-915b-1f884c08e7ce",
+        "model": "auto"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    }
+  }
+}

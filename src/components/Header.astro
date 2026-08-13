@@ -1,0 +1,88 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const navLinks = [
+  { href: `${base}/`, label: '首页' },
+  { href: `${base}/works/`, label: '作品' },
+  { href: `${base}/learn/`, label: '教程' },
+  { href: `${base}/gear/`, label: '装备' },
+  { href: `${base}/about/`, label: '关于' },
+];
+---
+
+<header class={`nav ${transparent ? 'nav--transparent' : ''}`} id="site-nav">
+  <a href={`${base}/`} class="nav__logo">Camera</a>
+  <div class="nav__right">
+    <ThemeToggle />
+    <button
+      class="hamburger"
+      id="menu-toggle"
+      aria-label="菜单"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="menu-overlay" id="menu-overlay" aria-hidden="true">
+  {navLinks.map((link) => (
+    <a href={link.href} class="menu-overlay__link">{link.label}</a>
+  ))}
+</nav>
+
+<script is:inline>
+  (function () {
+    var toggle = document.getElementById('menu-toggle');
+    var overlay = document.getElementById('menu-overlay');
+    var nav = document.getElementById('site-nav');
+    if (!toggle || !overlay) return;
+
+    function setOpen(open) {
+      toggle.classList.toggle('is-open', open);
+      overlay.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      overlay.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    toggle.addEventListener('click', function () {
+      var isOpen = overlay.classList.contains('is-open');
+      setOpen(!isOpen);
+    });
+
+    // 点击菜单链接后关闭
+    overlay.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        setOpen(false);
+      });
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    // 首页滚动时导航栏加背景
+    if (nav && nav.classList.contains('nav--transparent')) {
+      var onScroll = function () {
+        if (window.scrollY > 50) {
+          nav.classList.remove('nav--transparent');
+        } else {
+          nav.classList.add('nav--transparent');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  })();
+</script>

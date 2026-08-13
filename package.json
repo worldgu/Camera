@@ -1,0 +1,32 @@
+{
+  "name": "camera",
+  "version": "1.0.0",
+  "description": "Camera project.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worldgu/Camera.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/worldgu/Camera/issues"
+  },
+  "homepage": "https://github.com/worldgu/Camera#readme",
+  "dependencies": {
+    "@astrojs/react": "^6.0.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "astro": "^7.2.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

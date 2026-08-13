@@ -1,0 +1,19 @@
+src/content/config.ts
+  s_a743edfc0a98ed::t_709c10f9e97d3b 1-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c3d825700dfce6b34ea09e539385a6b1d5812278",
+  "prompts": {},
+  "sessions": {
+    "s_a743edfc0a98ed": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffaaa-20ac-7ac1-84f2-4a806c992945",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    }
+  }
+}

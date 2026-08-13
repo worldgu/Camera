@@ -1,0 +1,19 @@
+.github/workflows/deploy.yml
+  s_04e45986a2af5a::t_25dcc71abfa186 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "52418aedbad581a74e219dd9de222f18990b509f",
+  "prompts": {},
+  "sessions": {
+    "s_04e45986a2af5a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff9c6-e737-77a2-b134-f7b0c50f3d76",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    }
+  }
+}

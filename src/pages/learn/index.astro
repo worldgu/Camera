@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="教程" description="摄影新手入门教程 — 从零基础到会拍照">
+  <div class="page-wrap">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">教 程</h1>
+        <p class="page-subtitle">从零开始，系统学摄影</p>
+      </header>
+
+      <div class="learn-entries">
+        <a href={`${base}/learn/path/`} class="learn-entry">
+          <div class="learn-entry__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+          </div>
+          <h2 class="learn-entry__title">学习路径</h2>
+          <p class="learn-entry__desc">按学习顺序排列，跟着走就能学会<br />适合完全新手从零开始</p>
+          <span class="learn-entry__more">开始学习 →</span>
+        </a>
+
+        <a href={`${base}/learn/topics/`} class="learn-entry">
+          <div class="learn-entry__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </div>
+          <h2 class="learn-entry__title">分类索引</h2>
+          <p class="learn-entry__desc">按知识领域分类，方便查阅<br />想查什么翻什么</p>
+          <span class="learn-entry__more">浏览分类 →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.learn-entries {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 800px;
+  margin: 40px auto 80px;
+}
+
+.learn-entry {
+  display: block;
+  padding: 48px 32px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.learn-entry:hover {
+  border-color: var(--fg);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.learn-entry__icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 24px;
+  color: var(--fg);
+}
+
+.learn-entry__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.learn-entry__title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.learn-entry__desc {
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.learn-entry__more {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+}
+
+@media (max-width: 768px) {
+  .learn-entries {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .learn-entry {
+    padding: 32px 24px;
+  }
+}
+</style>

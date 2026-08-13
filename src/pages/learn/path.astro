@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// 获取所有教程文章，按分类 + order 排序
+const allPosts = await getCollection('learn');
+const basics = allPosts
+  .filter((p) => p.data.category === 'basics')
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const categories = [
+  { key: 'basics', label: '基础篇', status: 'active', desc: '从零开始，建立摄影的底层认知' },
+  { key: 'composition', label: '构图篇', status: 'soon', desc: '经典构图法与视觉语言' },
+  { key: 'light', label: '光线篇', status: 'soon', desc: '理解光，运用光' },
+  { key: 'subjects', label: '题材篇', status: 'soon', desc: '人像、风光、街拍、静物……' },
+  { key: 'operation', label: '操作篇', status: 'soon', desc: '白平衡、胶片模拟、RAW' },
+  { key: 'post', label: '后期篇', status: 'soon', desc: 'Lightroom 基础与调色思路' },
+  { key: 'gear', label: '器材篇', status: 'soon', desc: '认识相机与镜头体系' },
+];
+---
+
+<BaseLayout title="学习路径" description="从零开始，系统学习摄影">
+  <div class="page-wrap">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">学 习 路 径</h1>
+        <p class="page-subtitle">从零开始，循序渐进</p>
+      </header>
+
+      <div class="path-list">
+        {categories.map((cat, idx) => (
+          <div class={`path-section ${cat.status === 'active' ? '' : 'is-soon'}`}>
+            <div class="path-section__header">
+              <span class="path-section__num">{String(idx + 1).padStart(2, '0')}</span>
+              <div>
+                <h2 class="path-section__title">
+                  {cat.label}
+                  {cat.status === 'soon' && <span class="badge-soon">即将推出</span>}
+                </h2>
+                <p class="path-section__desc">{cat.desc}</p>
+              </div>
+            </div>
+
+            {cat.status === 'active' && cat.key === 'basics' && (
+              <ol class="path-steps">
+                {basics.map((post) => (
+                  <li class="path-step">
+                    <a href={`${base}/learn/${post.data.category}/${post.id.replace(/^\d+-/, '')}/`} class="path-step__link">
+                      <span class="path-step__dot"></span>
+                      <span class="path-step__title">{post.data.title}</span>
+                      <span class="path-step__arrow">→</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            )}
+
+            {cat.status === 'soon' && (
+              <div class="path-soon">
+                <span>敬请期待</span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.path-list {
+  max-width: 720px;
+  margin: 0 auto 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.path-section {
+  border: 1px solid var(--border);
+  padding: 32px;
+  transition: border-color var(--transition);
+}
+
+.path-section.is-soon {
+  opacity: 0.6;
+}
+
+.path-section__header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.path-section__num {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: var(--fg-muted);
+  line-height: 1;
+  min-width: 60px;
+}
+
+.path-section__title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.path-section__desc {
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+}
+
+.badge-soon {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.path-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.path-steps::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  background: var(--border);
+}
+
+.path-step__link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  transition: opacity var(--transition);
+  position: relative;
+}
+
+.path-step__link:hover {
+  opacity: 1;
+}
+
+.path-step__link:hover .path-step__title {
+  color: var(--fg);
+}
+
+.path-step__dot {
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  flex-shrink: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.path-step__link:hover .path-step__dot {
+  border-color: var(--fg);
+  background: var(--fg);
+}
+
+.path-step__title {
+  flex: 1;
+  font-size: 1rem;
+  color: var(--fg-secondary);
+  transition: color var(--transition);
+}
+
+.path-step__arrow {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+  transition: transform var(--transition);
+}
+
+.path-step__link:hover .path-step__arrow {
+  transform: translateX(4px);
+  color: var(--fg);
+}
+
+.path-soon {
+  padding: 20px 0;
+  text-align: center;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .path-section {
+    padding: 24px 20px;
+  }
+
+  .path-section__num {
+    font-size: 2rem;
+    min-width: 40px;
+  }
+
+  .path-section__title {
+    font-size: 1.25rem;
+  }
+}
+</style>

@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const allPosts = await getCollection('learn');
+
+const categories = [
+  {
+    key: 'basics',
+    label: '基础篇',
+    desc: '曝光三要素、测光、对焦、焦距、模式转盘',
+    icon: 'camera',
+    status: 'active',
+  },
+  {
+    key: 'composition',
+    label: '构图篇',
+    desc: '经典构图法、景别、画面层次',
+    icon: 'grid',
+    status: 'soon',
+  },
+  {
+    key: 'light',
+    label: '光线篇',
+    desc: '光的方向、自然光时段、人工光基础',
+    icon: 'sun',
+    status: 'soon',
+  },
+  {
+    key: 'subjects',
+    label: '题材篇',
+    desc: '人像、风光、街拍、静物、运动、夜景',
+    icon: 'image',
+    status: 'soon',
+  },
+  {
+    key: 'operation',
+    label: '操作篇',
+    desc: '白平衡、胶片模拟、RAW vs JPEG、相机保养',
+    icon: 'settings',
+    status: 'soon',
+  },
+  {
+    key: 'post',
+    label: '后期篇',
+    desc: 'LR 基础、调色、锐化、二次构图',
+    icon: 'sliders',
+    status: 'soon',
+  },
+  {
+    key: 'gear',
+    label: '器材篇',
+    desc: '相机分类、镜头体系、配件',
+    icon: 'lens',
+    status: 'soon',
+  },
+];
+
+const categoryPosts = (key: string) =>
+  allPosts
+    .filter((p) => p.data.category === key)
+    .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+---
+
+<BaseLayout title="分类索引" description="按知识领域分类查阅摄影教程">
+  <div class="page-wrap">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">分 类 索 引</h1>
+        <p class="page-subtitle">按知识领域分类查阅</p>
+      </header>
+
+      <div class="topics-grid">
+        {categories.map((cat) => {
+          const posts = categoryPosts(cat.key);
+          return (
+            <div class={`topic-card ${cat.status === 'soon' ? 'is-soon' : ''}`}>
+              <div class="topic-card__head">
+                <h2 class="topic-card__title">{cat.label}</h2>
+                {cat.status === 'soon' && <span class="badge-soon">即将推出</span>}
+              </div>
+              <p class="topic-card__desc">{cat.desc}</p>
+
+              {cat.status === 'active' && posts.length > 0 && (
+                <ul class="topic-card__list">
+                  {posts.map((post) => (
+                    <li>
+                      <a
+                        href={`${base}/learn/${post.data.category}/${post.id.replace(/^\d+-/, '')}/`}
+                        class="topic-card__link"
+                      >
+                        {post.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding-bottom: 80px;
+}
+
+.topic-card {
+  border: 1px solid var(--border);
+  padding: 28px;
+  transition: all var(--transition);
+}
+
+.topic-card:hover {
+  border-color: var(--fg);
+}
+
+.topic-card.is-soon {
+  opacity: 0.5;
+}
+
+.topic-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.topic-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.badge-soon {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+.topic-card__desc {
+  font-size: 0.85rem;
+  color: var(--fg-secondary);
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.topic-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topic-card__link {
+  font-size: 0.9rem;
+  color: var(--fg-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--transition);
+}
+
+.topic-card__link::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: var(--fg-muted);
+  border-radius: 50%;
+  transition: background var(--transition);
+}
+
+.topic-card__link:hover {
+  color: var(--fg);
+  opacity: 1;
+}
+
+.topic-card__link:hover::before {
+  background: var(--fg);
+}
+
+@media (max-width: 600px) {
+  .topics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

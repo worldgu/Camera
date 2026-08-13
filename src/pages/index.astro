@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Camera" transparentNav={true}>
+  <!-- Hero 首屏 -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">人生如逆旅<br />我亦是行人</h1>
+      <p class="hero__subtitle">以光为笔，以影为墨</p>
+      <a href={`${base}/learn/`} class="hero__cta">开始学习</a>
+    </div>
+    <div class="hero__scroll">SCROLL</div>
+  </section>
+
+  <!-- 最新作品预览 -->
+  <section class="home-section">
+    <div class="container">
+      <h2 class="home-section__title">最 新 作 品</h2>
+      <div class="home-preview">
+        <a href={`${base}/works/`} class="home-preview__item">
+          <div class="home-preview__img home-preview__img--1"></div>
+        </a>
+        <a href={`${base}/works/`} class="home-preview__item">
+          <div class="home-preview__img home-preview__img--2"></div>
+        </a>
+        <a href={`${base}/works/`} class="home-preview__item">
+          <div class="home-preview__img home-preview__img--3"></div>
+        </a>
+      </div>
+      <div class="home-section__more">
+        <a href={`${base}/works/`} class="link-more">查看全部作品 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 教程引导 -->
+  <section class="home-section home-section--alt">
+    <div class="container">
+      <h2 class="home-section__title">新 手 入 门</h2>
+      <div class="home-grid">
+        <a href={`${base}/learn/`} class="home-grid__item">
+          <h3>学习路径</h3>
+          <p>从零开始，循序渐进<br />跟着走就能学会拍照</p>
+        </a>
+        <a href={`${base}/learn/`} class="home-grid__item">
+          <h3>分类查阅</h3>
+          <p>按知识领域分类<br />想查什么翻什么</p>
+        </a>
+        <a href={`${base}/gear/`} class="home-grid__item">
+          <h3>装备参考</h3>
+          <p>我在用的器材<br />真实使用感受</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于引导 -->
+  <section class="home-section">
+    <div class="container" style="text-align:center; max-width: 600px; margin: 0 auto;">
+      <h2 class="home-section__title">关 于 我</h2>
+      <p style="color: var(--fg-secondary); line-height: 2; margin-bottom: 40px;">
+        一个喜欢拍照的人，记录路上遇到的光与影。<br />
+        如果你刚买了相机不知道从哪开始，希望这里能帮到你。
+      </p>
+      <a href={`${base}/about/`} class="link-more">了解更多 →</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.home-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.home-preview__item {
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.home-preview__item:hover {
+  opacity: 1;
+}
+
+.home-preview__img {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+  transition: transform 0.6s ease;
+}
+
+.home-preview__item:hover .home-preview__img {
+  transform: scale(1.03);
+}
+
+.home-preview__img--1 {
+  background: linear-gradient(135deg, #d4d4d4 0%, #888 100%);
+}
+.home-preview__img--2 {
+  background: linear-gradient(135deg, #a0a0a0 0%, #444 100%);
+}
+.home-preview__img--3 {
+  background: linear-gradient(135deg, #c0c0c0 0%, #666 100%);
+}
+
+.home-section__more {
+  text-align: center;
+}
+
+.link-more {
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  color: var(--fg-secondary);
+  transition: color var(--transition);
+}
+
+.link-more:hover {
+  color: var(--fg);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .home-preview {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+</style>

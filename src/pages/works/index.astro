@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorksGallery from '../../components/WorksGallery.tsx';
+import worksData from '../../content/works/works.json';
+import '../../components/WorksGallery.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="作品" description="摄影作品展示 — 人像、风光、街拍、静物">
+  <div class="page-wrap">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">作 品</h1>
+        <p class="page-subtitle">以光为笔，以影为墨</p>
+      </header>
+
+      <WorksGallery works={worksData} base={base} client:load />
+    </div>
+  </div>
+</BaseLayout>

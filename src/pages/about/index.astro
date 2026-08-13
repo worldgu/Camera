@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于" description="关于这个摄影站和我">
+  <div class="page-wrap">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">关 于</h1>
+        <p class="page-subtitle">关于我和这个站</p>
+      </header>
+
+      <div class="about-content">
+        <p>你好，欢迎来到这里。</p>
+        <p>
+          我是一个喜欢拍照的人。从第一次拿起相机到现在，走过了一些路，
+          也记录了一些光与影。这个站是我的作品展示，同时也是我对摄影的一份梳理。
+        </p>
+        <p>
+          如果你刚买了第一台相机，不知道从哪下手，希望这里的教程能帮到你。
+          我尽量用大白话讲清楚，像朋友聊天一样，不端着。
+        </p>
+        <p style="margin-top: 40px; color: var(--fg-secondary); font-size: 0.9rem;">
+          「人生如逆旅，我亦是行人」
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.about-content {
+  max-width: 640px;
+  margin: 0 auto 80px;
+  line-height: 2;
+  font-size: 1rem;
+}
+
+.about-content p {
+  margin-bottom: 20px;
+  color: var(--fg-secondary);
+}
+
+.about-content p:first-child {
+  font-size: 1.25rem;
+  color: var(--fg);
+  font-family: var(--font-serif);
+  margin-bottom: 32px;
+}
+</style>

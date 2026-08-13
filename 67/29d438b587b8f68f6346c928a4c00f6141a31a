@@ -1,0 +1,79 @@
+docs/ai-memory/001-需求沟通-网站定位与内容规划.md
+  s_b7bcfdc0fec7d2::t_e7534429830d4c 1-64
+docs/ai-memory/003-需求沟通-架构与交互细节.md
+  s_b7bcfdc0fec7d2::t_cbbf7501985138 1-38
+docs/需求文档.md
+  s_087fb80a5dfbfd::t_cf169fd6a96323 1-311
+src/components/WorksGallery.css
+  s_c1af85fbb8244e::t_f490304260d252 1-391
+src/components/WorksGallery.tsx
+  s_c1af85fbb8244e::t_ca8561a8059f87 1-374
+src/content/learn/basics/01-hello-camera.md
+  s_c1af85fbb8244e::t_5b75633b20ddb8 1-64
+src/content/learn/basics/02-aperture.md
+  s_c1af85fbb8244e::t_032e98c116ae16 1-80
+src/content/learn/basics/03-shutter-speed.md
+  s_c1af85fbb8244e::t_2cb2d8f84608bb 1-82
+src/content/learn/basics/04-iso.md
+  s_c1af85fbb8244e::t_33877b537ad80a 1-87
+src/content/learn/basics/05-metering.md
+  s_c1af85fbb8244e::t_c571c3eea39b57 1-83
+src/content/learn/basics/06-exposure-compensation.md
+  s_c1af85fbb8244e::t_2a4b034fe87070 1-90
+src/content/learn/basics/07-focus.md
+  s_c1af85fbb8244e::t_99c1e9dd8175eb 1-115
+src/content/learn/basics/08-focal-length.md
+  s_c1af85fbb8244e::t_fd8e3176c42754 1-95
+src/content/learn/basics/09-mode-dial.md
+  s_c1af85fbb8244e::t_d196eec59281b8 1-137
+src/content/works/works.json
+  s_c1af85fbb8244e::t_3823d59781f97d 1-218
+src/pages/about/index.astro
+  s_c1af85fbb8244e::t_535117cbbd7577 1-50
+src/pages/gear/index.astro
+  s_c1af85fbb8244e::t_32cffb0e48b3a0 1-23
+src/pages/index.astro
+  s_c1af85fbb8244e::t_128e211bcac4d1 1-135
+src/pages/learn/index.astro
+  s_c1af85fbb8244e::t_e8a599c85aed90 1-113
+src/pages/learn/path.astro
+  s_c1af85fbb8244e::t_bfc332b348a855 1-222
+src/pages/learn/topics.astro
+  s_c1af85fbb8244e::t_59b3cd483ee20d 1-202
+src/pages/works/[slug].astro
+  s_c1af85fbb8244e::t_cf66a525888281 1-292
+src/pages/works/index.astro
+  s_c1af85fbb8244e::t_10b40f1ae08c36 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6729d438b587b8f68f6346c928a4c00f6141a31a",
+  "prompts": {},
+  "sessions": {
+    "s_087fb80a5dfbfd": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff8fb-46cb-7211-90b3-f8f0cc94fce2",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    },
+    "s_b7bcfdc0fec7d2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff5ed-659d-7990-8ebe-ee123108116c",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    },
+    "s_c1af85fbb8244e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff928-6971-7ee3-acb2-df7518dff0b3",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import worksData from '../../content/works/works.json';
+import worksData from '../../data/works.json';
 
 export async function getStaticPaths() {
   return worksData.map((work) => ({

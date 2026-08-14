@@ -6,4 +6,7 @@ export default defineConfig({
   site: 'https://worldgu.github.io',
   base: '/Camera',
   integrations: [react()],
+  legacy: {
+    collectionsBackwardsCompat: true,
+  },
 });

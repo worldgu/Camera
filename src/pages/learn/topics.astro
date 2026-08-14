@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { slugOf } from '../../utils/slug';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -88,7 +89,7 @@ const categoryPosts = (key: string) =>
                   {posts.map((post) => (
                     <li>
                       <a
-                        href={`${base}/learn/${post.data.category}/${post.id.replace(/^\d+-/, '')}/`}
+                        href={`${base}/learn/${post.data.category}/${slugOf(post)}/`}
                         class="topic-card__link"
                       >
                         {post.data.title}

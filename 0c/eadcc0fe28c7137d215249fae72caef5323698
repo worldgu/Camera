@@ -1,0 +1,47 @@
+astro.config.mjs
+  s_f8baf66d1ff7f5::t_94a4c198acc581 9-11
+src/content.config.ts
+  s_f8baf66d1ff7f5::t_db8a554bdca979 1,5,16,19
+src/pages/learn/[category]/[slug].astro
+  s_f8baf66d1ff7f5::t_0387c06215c4f1 1-413
+src/pages/learn/topics.astro
+  s_22ee2186df128f::t_a8b501b821d46f 4,92
+src/pages/works/[slug].astro
+  s_c1af85fbb8244e::t_7689a1ab09ecdb 3
+src/pages/works/index.astro
+  s_f8baf66d1ff7f5::t_5cc6d792c4e1fd 4
+src/utils/slug.ts
+  s_22ee2186df128f::t_e679a5dee75270 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0ceadcc0fe28c7137d215249fae72caef5323698",
+  "prompts": {},
+  "sessions": {
+    "s_22ee2186df128f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fffa7-9125-7352-84e9-efdff3552c94",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    },
+    "s_c1af85fbb8244e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff928-6971-7ee3-acb2-df7518dff0b3",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    },
+    "s_f8baf66d1ff7f5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ffee4-b2b4-7812-8a61-0850698485b0",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangchunhai>"
+    }
+  }
+}

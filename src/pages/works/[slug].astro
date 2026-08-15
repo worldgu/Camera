@@ -32,9 +32,15 @@ const categoryLabels: Record<string, string> = {
 
 <BaseLayout title={work.title} description={work.description}>
   <div class="photo-page">
-    <div class="photo-page__image" style={{ background: work.color }}>
-      <span class="photo-page__title-text">{work.title}</span>
-    </div>
+    {work.image ? (
+      <div class="photo-page__image photo-page__image--photo">
+        <img src={work.image} alt={work.title} />
+      </div>
+    ) : (
+      <div class="photo-page__image" style={{ background: work.color }}>
+        <span class="photo-page__title-text">{work.title}</span>
+      </div>
+    )}
 
     <div class="container">
       <div class="photo-page__content">
@@ -141,6 +147,21 @@ const categoryLabels: Record<string, string> = {
   align-items: center;
   justify-content: center;
   margin-bottom: 60px;
+}
+
+/* 有真实照片时不撑满高度，按原图比例完整展示 */
+.photo-page__image--photo {
+  min-height: 0;
+  background: var(--bg-secondary);
+}
+
+.photo-page__image--photo img {
+  display: block;
+  max-width: 100%;
+  max-height: 82vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .photo-page__title-text {

@@ -16,6 +16,7 @@ interface Work {
   focalLength: string;
   description: string;
   color: string;
+  image?: string;
   aspectRatio: number;
 }
 
@@ -225,12 +226,17 @@ export default function WorksGallery({ works, base }: Props) {
               >
                 <div
                   className="masonry__img"
+                  role={work.image ? 'img' : undefined}
+                  aria-label={work.image ? work.title : undefined}
                   style={{
-                    background: work.color,
+                    background: work.image ? undefined : work.color,
+                    backgroundImage: work.image ? `url('${work.image}')` : undefined,
+                    backgroundSize: work.image ? 'cover' : undefined,
+                    backgroundPosition: work.image ? 'center' : undefined,
                     aspectRatio: `${work.aspectRatio}`,
                   }}
                 >
-                  <span className="masonry__title">{work.title}</span>
+                  {!work.image && <span className="masonry__title">{work.title}</span>}
                 </div>
               </div>
             ))}
@@ -274,8 +280,13 @@ export default function WorksGallery({ works, base }: Props) {
                     >
                       <div
                         className="album__img"
+                        role={work.image ? 'img' : undefined}
+                        aria-label={work.image ? work.title : undefined}
                         style={{
-                          background: work.color,
+                          background: work.image ? undefined : work.color,
+                          backgroundImage: work.image ? `url('${work.image}')` : undefined,
+                          backgroundSize: work.image ? 'cover' : undefined,
+                          backgroundPosition: work.image ? 'center' : undefined,
                           aspectRatio: '1 / 1',
                         }}
                       />
@@ -320,12 +331,18 @@ export default function WorksGallery({ works, base }: Props) {
           </button>
 
           <div className="lightbox__content" onClick={(e) => e.stopPropagation()}>
-            <div
-              className="lightbox__image"
-              style={{ background: currentWork.color }}
-            >
-              <span className="lightbox__image-title">{currentWork.title}</span>
-            </div>
+            {currentWork.image ? (
+              <div className="lightbox__image lightbox__image--photo">
+                <img src={currentWork.image} alt={currentWork.title} />
+              </div>
+            ) : (
+              <div
+                className="lightbox__image"
+                style={{ background: currentWork.color }}
+              >
+                <span className="lightbox__image-title">{currentWork.title}</span>
+              </div>
+            )}
             <div className="lightbox__info">
               <h3 className="lightbox__title">{currentWork.title}</h3>
               <p className="lightbox__desc">{currentWork.description}</p>

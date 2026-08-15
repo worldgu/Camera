@@ -33,7 +33,14 @@ const latestWorks = [...worksData]
             class="home-preview__item"
             aria-label={work.title}
           >
-            <div class="home-preview__img" style={`background: ${work.color}`}></div>
+            <div
+              class="home-preview__img"
+              style={
+                work.image
+                  ? `background-image: url('${work.image}'); background-size: cover; background-position: center;`
+                  : `background: ${work.color}`
+              }
+            ></div>
           </a>
         ))}
       </div>

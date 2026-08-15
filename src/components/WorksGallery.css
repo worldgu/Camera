@@ -260,6 +260,16 @@
   min-height: 400px;
 }
 
+/* 真实照片按原比例完整显示，不裁切 */
+.lightbox__image--photo img {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 .lightbox__image-title {
   color: rgba(255, 255, 255, 0.8);
   font-family: var(--font-serif);

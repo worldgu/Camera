@@ -1,0 +1,196 @@
+---
+import { GEAR_TYPE_LABELS, type GearItem } from '../utils/gear';
+
+interface Props {
+  item: GearItem;
+  base: string;
+  workCount: number;
+}
+
+const { item, base, workCount } = Astro.props;
+const typeLabel = GEAR_TYPE_LABELS[item.type] ?? item.type;
+---
+
+<article class="gear-card">
+  <a href={`${base}/gear/${item.slug}/`} class="gear-card__media" style={`background: ${item.color}`}>
+    <span class="gear-card__media-text">{item.name}</span>
+  </a>
+
+  <div class="gear-card__body">
+    <div class="gear-card__tags">
+      <span class="gear-card__tag">{typeLabel}</span>
+      <span class="gear-card__tag gear-card__tag--sub">{item.subtype}</span>
+      {item.acquiredAt && <span class="gear-card__date">{item.acquiredAt}</span>}
+    </div>
+
+    <h3 class="gear-card__name">
+      <a href={`${base}/gear/${item.slug}/`}>{item.name}</a>
+    </h3>
+    <p class="gear-card__model">{item.model}</p>
+    <p class="gear-card__review">{item.review}</p>
+
+    <details class="gear-card__specs">
+      <summary>主要参数</summary>
+      <dl>
+        {item.specs.map((spec) => (
+          <div class="spec-row">
+            <dt>{spec.label}</dt>
+            <dd>{spec.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </details>
+
+    <a href={`${base}/gear/${item.slug}/`} class="gear-card__more">
+      {workCount > 0 ? `查看 ${workCount} 张作品 →` : '查看详情 →'}
+    </a>
+  </div>
+</article>
+
+<style>
+.gear-card {
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  transition: border-color var(--transition);
+}
+
+.gear-card:hover {
+  border-color: var(--fg-muted);
+}
+
+.gear-card__media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+}
+
+.gear-card__media-text {
+  position: absolute;
+  left: 20px;
+  bottom: 16px;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+.gear-card__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.gear-card__tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gear-card__tag {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  color: var(--fg-secondary);
+}
+
+.gear-card__tag--sub {
+  border-style: dashed;
+}
+
+.gear-card__date {
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+  margin-left: auto;
+}
+
+.gear-card__name {
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.gear-card__name a {
+  color: var(--fg);
+}
+
+.gear-card__model {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+
+.gear-card__review {
+  font-size: 0.85rem;
+  line-height: 1.85;
+  color: var(--fg-secondary);
+}
+
+.gear-card__specs {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.gear-card__specs summary {
+  font-size: 0.78rem;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gear-card__specs summary::-webkit-details-marker {
+  display: none;
+}
+
+.gear-card__specs summary::before {
+  content: '+';
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--fg-muted);
+}
+
+.gear-card__specs[open] summary::before {
+  content: '−';
+}
+
+.gear-card__specs dl {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.78rem;
+}
+
+.spec-row dt {
+  color: var(--fg-muted);
+}
+
+.spec-row dd {
+  color: var(--fg-secondary);
+  text-align: right;
+}
+
+.gear-card__more {
+  font-size: 0.78rem;
+  color: var(--fg-secondary);
+  padding-top: 4px;
+}
+
+.gear-card__more:hover {
+  color: var(--fg);
+}
+</style>

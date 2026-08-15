@@ -1,0 +1,305 @@
+[
+  {
+    "id": "sony-a7m4",
+    "slug": "sony-a7m4",
+    "name": "Sony A7M4",
+    "model": "ILCE-7M4",
+    "type": "camera",
+    "subtype": "微单",
+    "status": "active",
+    "acquiredAt": "2026-03",
+    "color": "linear-gradient(140deg, #3f3f46 0%, #27272a 55%, #18181b 100%)",
+    "review": "主力机身，握持和菜单都顺手，对焦几乎不用操心。唯一的槽点是配上大三元之后重量很实在，扫街背一天肩膀会抗议。",
+    "specs": [
+      { "label": "传感器", "value": "全画幅 CMOS" },
+      { "label": "像素", "value": "3300 万" },
+      { "label": "卡口", "value": "Sony E" },
+      { "label": "取景器", "value": "369 万点 EVF" }
+    ],
+    "matchCamera": "Sony A7M4"
+  },
+  {
+    "id": "fujifilm-x100v",
+    "slug": "fujifilm-x100v",
+    "name": "Fujifilm X100V",
+    "model": "X100V",
+    "type": "camera",
+    "subtype": "卡片",
+    "status": "active",
+    "acquiredAt": "2026-05",
+    "color": "linear-gradient(140deg, #52525b 0%, #3f3f46 50%, #262626 100%)",
+    "review": "随身机，胶片模拟直出就能用，扫街时几乎不引人注意。定焦不能变焦这件事反而让人更愿意走近一点。",
+    "specs": [
+      { "label": "传感器", "value": "APS-C X-Trans CMOS 4" },
+      { "label": "像素", "value": "2610 万" },
+      { "label": "镜头", "value": "23mm F2 固定" },
+      { "label": "取景器", "value": "混合式光电取景" }
+    ],
+    "matchCamera": "Fujifilm X100V"
+  },
+  {
+    "id": "sony-24-70-gm2",
+    "slug": "sony-24-70mm-f28-gm2",
+    "name": "Sony 24-70mm F2.8 GM II",
+    "model": "SEL2470GM2",
+    "type": "lens",
+    "subtype": "变焦",
+    "status": "active",
+    "acquiredAt": "2026-03",
+    "color": "linear-gradient(140deg, #4b5563 0%, #374151 50%, #1f2937 100%)",
+    "review": "挂机头，一支解决大部分场景。二代比一代轻了不少，画质在整个焦段都稳。如果只能带一支镜头出门，就是它。",
+    "specs": [
+      { "label": "焦段", "value": "24-70mm" },
+      { "label": "最大光圈", "value": "F2.8" },
+      { "label": "滤镜口径", "value": "82mm" },
+      { "label": "重量", "value": "695g" }
+    ],
+    "matchLens": "Sony 24-70mm F2.8 GM II"
+  },
+  {
+    "id": "sony-85-gm",
+    "slug": "sony-85mm-f14-gm",
+    "name": "Sony 85mm F1.4 GM",
+    "model": "SEL85F14GM",
+    "type": "lens",
+    "subtype": "定焦",
+    "status": "active",
+    "acquiredAt": "2026-04",
+    "color": "linear-gradient(140deg, #57534e 0%, #44403c 50%, #292524 100%)",
+    "review": "拍人像的定心丸，全开就能用，虚化过渡很干净。缺点是室内稍显长，退无可退的时候只能换头。",
+    "specs": [
+      { "label": "焦段", "value": "85mm" },
+      { "label": "最大光圈", "value": "F1.4" },
+      { "label": "滤镜口径", "value": "77mm" },
+      { "label": "重量", "value": "820g" }
+    ],
+    "matchLens": "Sony 85mm F1.4 GM"
+  },
+  {
+    "id": "sony-16-35-gm",
+    "slug": "sony-16-35mm-f28-gm",
+    "name": "Sony 16-35mm F2.8 GM",
+    "model": "SEL1635GM",
+    "type": "lens",
+    "subtype": "变焦",
+    "status": "active",
+    "acquiredAt": "2026-04",
+    "color": "linear-gradient(140deg, #475569 0%, #334155 50%, #1e293b 100%)",
+    "review": "风光和星空的主力，16mm 端够广，边角也扎实。装上之后包里就没什么空间了，但拍大场面时不会后悔。",
+    "specs": [
+      { "label": "焦段", "value": "16-35mm" },
+      { "label": "最大光圈", "value": "F2.8" },
+      { "label": "滤镜口径", "value": "82mm" },
+      { "label": "重量", "value": "680g" }
+    ],
+    "matchLens": "Sony 16-35mm F2.8 GM"
+  },
+  {
+    "id": "sony-50-gm",
+    "slug": "sony-50mm-f12-gm",
+    "name": "Sony 50mm F1.2 GM",
+    "model": "SEL50F12GM",
+    "type": "lens",
+    "subtype": "定焦",
+    "status": "active",
+    "acquiredAt": "2026-06",
+    "color": "linear-gradient(140deg, #525252 0%, #404040 50%, #171717 100%)",
+    "review": "标头里的偏爱，F1.2 的浅景深有种说不清的空气感。价格不便宜，但它是那种买了就不想卖的镜头。",
+    "specs": [
+      { "label": "焦段", "value": "50mm" },
+      { "label": "最大光圈", "value": "F1.2" },
+      { "label": "滤镜口径", "value": "72mm" },
+      { "label": "重量", "value": "778g" }
+    ],
+    "matchLens": "Sony 50mm F1.2 GM"
+  },
+  {
+    "id": "sony-90-macro",
+    "slug": "sony-90mm-f28-macro",
+    "name": "Sony 90mm F2.8 Macro",
+    "model": "SEL90M28G",
+    "type": "lens",
+    "subtype": "特殊",
+    "status": "active",
+    "acquiredAt": "2026-05",
+    "color": "linear-gradient(140deg, #4c4f4a 0%, #3a3d38 50%, #1f221e 100%)",
+    "review": "拍静物和花草的专用头，1:1 微距能看到平时忽略的细节。手动对焦环的行程很长，慢慢拧的过程本身就挺舒服。",
+    "specs": [
+      { "label": "焦段", "value": "90mm" },
+      { "label": "最大光圈", "value": "F2.8" },
+      { "label": "放大倍率", "value": "1:1" },
+      { "label": "重量", "value": "602g" }
+    ],
+    "matchLens": "Sony 90mm F2.8 Macro"
+  },
+  {
+    "id": "fuji-23mm-f2",
+    "slug": "fujifilm-23mm-f2",
+    "name": "23mm F2",
+    "model": "X100V 固定镜头",
+    "type": "lens",
+    "subtype": "定焦",
+    "status": "active",
+    "acquiredAt": "2026-05",
+    "color": "linear-gradient(140deg, #5b5b5b 0%, #454545 50%, #232323 100%)",
+    "review": "X100V 自带的等效 35mm 视角，扫街几乎不用想构图取舍。近距离全开会稍软，收到 F2.8 就很干净。",
+    "specs": [
+      { "label": "焦段", "value": "23mm（等效 35mm）" },
+      { "label": "最大光圈", "value": "F2" },
+      { "label": "滤镜口径", "value": "49mm（需转接环）" },
+      { "label": "结构", "value": "机身固定" }
+    ],
+    "matchLens": "23mm F2"
+  },
+  {
+    "id": "rrs-tripod",
+    "slug": "rrs-tvc-24l",
+    "name": "RRS TVC-24L 三脚架",
+    "model": "TVC-24L",
+    "type": "support",
+    "subtype": "三脚架",
+    "status": "active",
+    "acquiredAt": "2026-04",
+    "color": "linear-gradient(140deg, #44403c 0%, #292524 60%, #1c1917 100%)",
+    "review": "拍慢门和星空必带。碳纤维管很稳，展开高度不用中轴就够用。贵是真的贵，但三脚架属于买一次用十年的东西。",
+    "specs": [
+      { "label": "品牌", "value": "Really Right Stuff" },
+      { "label": "材质", "value": "碳纤维 4 节" },
+      { "label": "最大高度", "value": "150cm" },
+      { "label": "重量", "value": "1.6kg" }
+    ]
+  },
+  {
+    "id": "nisi-cpl",
+    "slug": "nisi-cpl-82",
+    "name": "NiSi CPL 偏振镜",
+    "model": "True Color CPL 82mm",
+    "type": "filter",
+    "subtype": "CPL",
+    "status": "active",
+    "acquiredAt": "2026-05",
+    "color": "linear-gradient(140deg, #4a5568 0%, #2d3748 60%, #1a202c 100%)",
+    "review": "拍水面和树叶的时候差别很明显，反光压下去颜色就出来了。记得转到位再按快门，不然等于白装。",
+    "specs": [
+      { "label": "品牌", "value": "NiSi" },
+      { "label": "口径", "value": "82mm" },
+      { "label": "减光量", "value": "约 1.3 档" }
+    ]
+  },
+  {
+    "id": "sandisk-cfexpress",
+    "slug": "sandisk-cfexpress-b-128g",
+    "name": "SanDisk CFexpress Type B",
+    "model": "Extreme PRO 128GB",
+    "type": "storage",
+    "subtype": "存储卡",
+    "status": "active",
+    "acquiredAt": "2026-03",
+    "color": "linear-gradient(140deg, #57534e 0%, #3f3f46 60%, #1f1f1f 100%)",
+    "review": "连拍不掉速，导图也快。容量 128G 对我够用，出远门会再带一张备用。",
+    "specs": [
+      { "label": "品牌", "value": "SanDisk" },
+      { "label": "容量", "value": "128GB" },
+      { "label": "读取速度", "value": "1700MB/s" }
+    ]
+  },
+  {
+    "id": "peak-design-bag",
+    "slug": "peak-design-everyday-20l",
+    "name": "Peak Design 摄影包",
+    "model": "Everyday Backpack 20L",
+    "type": "bag",
+    "subtype": "摄影包",
+    "status": "active",
+    "acquiredAt": "2026-03",
+    "color": "linear-gradient(140deg, #4b5563 0%, #374151 60%, #111827 100%)",
+    "review": "隔板能随意调，侧开取机身很快。20L 装一机三镜加电脑刚好，再多就得压着拉链了。",
+    "specs": [
+      { "label": "品牌", "value": "Peak Design" },
+      { "label": "容量", "value": "20L" },
+      { "label": "重量", "value": "1.5kg" }
+    ]
+  },
+  {
+    "id": "canon-600d",
+    "slug": "canon-eos-600d",
+    "name": "Canon EOS 600D",
+    "model": "EOS 600D",
+    "type": "camera",
+    "subtype": "单反",
+    "status": "retired",
+    "acquiredAt": "2019",
+    "color": "linear-gradient(140deg, #6b7280 0%, #4b5563 60%, #374151 100%)",
+    "review": "第一台相机，用套头拍了两年。现在回看照片技术很糙，但摄影这件事就是从它开始的。翻转屏在当年帮了不少忙。",
+    "specs": [
+      { "label": "传感器", "value": "APS-C CMOS" },
+      { "label": "像素", "value": "1800 万" },
+      { "label": "卡口", "value": "Canon EF/EF-S" }
+    ]
+  },
+  {
+    "id": "sony-a6400",
+    "slug": "sony-a6400",
+    "name": "Sony A6400",
+    "model": "ILCE-6400",
+    "type": "camera",
+    "subtype": "微单",
+    "status": "retired",
+    "acquiredAt": "2022",
+    "color": "linear-gradient(140deg, #64748b 0%, #475569 60%, #334155 100%)",
+    "review": "从单反换过来的第一台微单，眼部对焦让我第一次觉得拍人不难。后来想要全画幅的虚化才升级，它被我出给了朋友。",
+    "specs": [
+      { "label": "传感器", "value": "APS-C CMOS" },
+      { "label": "像素", "value": "2420 万" },
+      { "label": "卡口", "value": "Sony E" }
+    ]
+  },
+  {
+    "id": "sony-35-gm",
+    "slug": "sony-35mm-f14-gm",
+    "name": "Sony 35mm F1.4 GM",
+    "model": "SEL35F14GM",
+    "type": "lens",
+    "subtype": "定焦",
+    "status": "wishlist",
+    "color": "linear-gradient(140deg, #52525b 0%, #3f3f46 60%, #27272a 100%)",
+    "review": "想要一支轻一点的大光圈广角定焦，扫街和环境人像都能用。目前 24-70 顶着，但总觉得少了点味道。",
+    "specs": [
+      { "label": "焦段", "value": "35mm" },
+      { "label": "最大光圈", "value": "F1.4" },
+      { "label": "重量", "value": "524g" }
+    ]
+  },
+  {
+    "id": "godox-v1",
+    "slug": "godox-v1",
+    "name": "Godox V1 闪光灯",
+    "model": "V1-S",
+    "type": "light",
+    "subtype": "闪光灯",
+    "status": "wishlist",
+    "color": "linear-gradient(140deg, #57534e 0%, #44403c 60%, #292524 100%)",
+    "review": "室内人像和夜景补光一直靠环境光凑，想补一支圆头灯试试跳闪。等哪天开始正经拍人像再说。",
+    "specs": [
+      { "label": "品牌", "value": "Godox" },
+      { "label": "灯头", "value": "圆形" },
+      { "label": "闪光指数", "value": "GN92" }
+    ]
+  },
+  {
+    "id": "nisi-nd1000",
+    "slug": "nisi-nd1000",
+    "name": "NiSi ND1000 减光镜",
+    "model": "True Color ND1000 82mm",
+    "type": "filter",
+    "subtype": "ND",
+    "status": "wishlist",
+    "color": "linear-gradient(140deg, #3f3f46 0%, #27272a 60%, #18181b 100%)",
+    "review": "想拍白天的长曝光，把水面和云拉成丝。目前只能靠傍晚硬凑快门，10 档减光是下一个要补的洞。",
+    "specs": [
+      { "label": "品牌", "value": "NiSi" },
+      { "label": "口径", "value": "82mm" },
+      { "label": "减光量", "value": "10 档" }
+    ]
+  }
+]

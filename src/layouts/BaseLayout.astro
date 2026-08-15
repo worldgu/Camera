@@ -11,6 +11,10 @@ interface Props {
 const { title, description = 'Camera 摄影站 — 新手教程与作品展示', transparentNav = false } = Astro.props;
 const siteTitle = 'Camera';
 const fullTitle = title === siteTitle ? title : `${title} · ${siteTitle}`;
+
+// 访问统计：仅在配置了 PUBLIC_GA_ID 且为生产构建时注入，避免开发环境污染数据
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const enableAnalytics = Boolean(gaId) && import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -32,6 +36,19 @@ const fullTitle = title === siteTitle ? title : `${title} · ${siteTitle}`;
         } catch (e) {}
       })();
     </script>
+    {enableAnalytics && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            window.dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
   </head>
   <body>
     <Header transparent={transparentNav} />

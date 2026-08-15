@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import { slugOf } from '../../../utils/slug';
 
 export async function getStaticPaths() {
   const posts = await getCollection('learn');
   return posts.map((post) => ({
     params: {
       category: post.data.category,
-      slug: post.id.split('/').pop()?.replace(/^\d+-/, '').replace(/\.md$/, ''),
+      slug: slugOf(post),
     },
     props: { post },
   }));
@@ -17,7 +18,7 @@ const { post } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { Content } = await render(post);
 
-// ?????????????/???
+// 同分类内按 order 排序，用于上一篇 / 下一篇
 const allPosts = await getCollection('learn');
 const sameCategory = allPosts
   .filter((p) => p.data.category === post.data.category)
@@ -27,21 +28,18 @@ const currentIndex = sameCategory.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sameCategory[currentIndex - 1] : null;
 const nextPost = currentIndex < sameCategory.length - 1 ? sameCategory[currentIndex + 1] : null;
 
-const slugOf = (p: CollectionEntry<'learn'>) => p.id.split('/').pop()?.replace(/^\d+-/, '').replace(/\.md$/, '');
-
-// ??????
+// 分类中文名
 const categoryLabels: Record<string, string> = {
-  basics: '???',
-  composition: '???',
-  light: '???',
-  subjects: '???',
-  operation: '???',
-  post: '???',
-  gear: '???',
+  basics: '基础篇',
+  composition: '构图篇',
+  light: '光线篇',
+  subjects: '题材篇',
+  operation: '操作篇',
+  post: '后期篇',
+  gear: '器材篇',
 };
 
 const categoryLabel = categoryLabels[post.data.category] || post.data.category;
-const shareUrl = `${Astro.url.origin}${base}/learn/${post.data.category}/${slugOf(post)}/`;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
@@ -49,9 +47,9 @@ const shareUrl = `${Astro.url.origin}${base}/learn/${post.data.category}/${slugO
     <div class="container">
       <div class="article__wrap">
         <nav class="article__breadcrumb">
-          <a href={`${base}/learn/`}>??</a>
+          <a href={`${base}/learn/`}>教程</a>
           <span class="sep">/</span>
-          <a href={`${base}/learn/topics/`}>????</a>
+          <a href={`${base}/learn/topics/`}>分类索引</a>
           <span class="sep">/</span>
           <span>{categoryLabel}</span>
         </nav>
@@ -78,29 +76,29 @@ const shareUrl = `${Astro.url.origin}${base}/learn/${post.data.category}/${slugO
         <div class="article__nav">
           {prevPost ? (
             <a href={`${base}/learn/${prevPost.data.category}/${slugOf(prevPost)}/`} class="post-nav post-nav--prev">
-              <span class="post-nav__label">? ???</span>
+              <span class="post-nav__label">← 上一篇</span>
               <span class="post-nav__title">{prevPost.data.title}</span>
             </a>
           ) : <div class="post-nav post-nav--empty" />}
           {nextPost ? (
             <a href={`${base}/learn/${nextPost.data.category}/${slugOf(nextPost)}/`} class="post-nav post-nav--next">
-              <span class="post-nav__label">??? ?</span>
+              <span class="post-nav__label">下一篇 →</span>
               <span class="post-nav__title">{nextPost.data.title}</span>
             </a>
           ) : <div class="post-nav post-nav--empty" />}
         </div>
 
         <div class="article__actions">
-          <a href={`${base}/learn/path/`} class="back-link">? ??????</a>
-          <a href={`${base}/learn/topics/`} class="back-link">? ??????</a>
+          <a href={`${base}/learn/path/`} class="back-link">← 返回学习路径</a>
+          <a href={`${base}/learn/topics/`} class="back-link">← 返回分类索引</a>
         </div>
 
         <div class="share-block">
-          <h3 class="share-title">??????</h3>
+          <h3 class="share-title">分享这篇教程</h3>
           <div class="share-buttons">
-            <button class="share-btn" data-platform="weibo" aria-label="?????">??</button>
-            <button class="share-btn" data-platform="twitter" aria-label="??? Twitter">Twitter</button>
-            <button class="share-btn" data-platform="copy" aria-label="????">????</button>
+            <button class="share-btn" data-platform="weibo" aria-label="分享到微博">微博</button>
+            <button class="share-btn" data-platform="twitter" aria-label="分享到 Twitter">Twitter</button>
+            <button class="share-btn" data-platform="copy" aria-label="复制链接">复制链接</button>
           </div>
         </div>
       </div>
@@ -136,7 +134,7 @@ const shareUrl = `${Astro.url.origin}${base}/learn/${post.data.category}/${slugO
       } else if (platform === 'copy') {
         navigator.clipboard.writeText(url).then(function () {
           var original = btn.textContent;
-          btn.textContent = '???';
+          btn.textContent = '已复制';
           setTimeout(function () {
             btn.textContent = original;
           }, 1500);

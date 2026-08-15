@@ -5,3 +5,5 @@ dist/
 .DS_Store
 astro-dev.log
 astro-dev-err.log
+output/
+*.env

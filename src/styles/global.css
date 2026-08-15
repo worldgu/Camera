@@ -180,6 +180,14 @@ figure.diagram svg .dia-text-label {
   text-anchor: middle;
 }
 
+figure.diagram svg .dia-text-invert {
+  fill: var(--bg);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  text-anchor: middle;
+}
+
 figure.diagram figcaption {
   margin-top: 12px;
   font-size: 0.85rem;

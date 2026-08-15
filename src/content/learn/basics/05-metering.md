@@ -55,6 +55,37 @@ tags: ["测光", "曝光"]
 
 **什么时候用？** 光比很大的场景，比如逆光人像、舞台灯光、月亮。
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 200" role="img" aria-label="评价测光、中央重点测光、点测光三种取样区域的对比示意">
+    <g transform="translate(24, 26)">
+      <rect x="0" y="0" width="156" height="108" class="dia-fill-soft" />
+      <path class="dia-stroke-thin" d="M26 0V108M52 0V108M78 0V108M104 0V108M130 0V108M0 27H156M0 54H156M0 81H156" opacity="0.5" />
+      <rect x="0" y="0" width="156" height="108" class="dia-stroke" />
+      <text x="78" y="130" class="dia-text-label">评价测光</text>
+      <text x="78" y="150" class="dia-text-muted">整个画面分区取样</text>
+      <text x="78" y="168" class="dia-text-muted">综合算一个曝光值</text>
+    </g>
+    <g transform="translate(232, 26)">
+      <rect x="0" y="0" width="156" height="108" class="dia-fill-soft" opacity="0.45" />
+      <ellipse cx="78" cy="54" rx="46" ry="34" class="dia-fill-soft" />
+      <ellipse cx="78" cy="54" rx="46" ry="34" class="dia-stroke" />
+      <rect x="0" y="0" width="156" height="108" class="dia-stroke" />
+      <text x="78" y="130" class="dia-text-label">中央重点测光</text>
+      <text x="78" y="150" class="dia-text-muted">中央为主，周围只作参考</text>
+    </g>
+    <g transform="translate(440, 26)">
+      <rect x="0" y="0" width="156" height="108" class="dia-fill-soft" opacity="0.45" />
+      <circle cx="78" cy="54" r="13" class="dia-fill" />
+      <circle cx="78" cy="54" r="24" class="dia-stroke-thin" stroke-dasharray="3 3" />
+      <rect x="0" y="0" width="156" height="108" class="dia-stroke" />
+      <text x="78" y="130" class="dia-text-label">点测光</text>
+      <text x="78" y="150" class="dia-text-muted">只测对焦点那一小块</text>
+      <text x="78" y="168" class="dia-text-muted">约画面的 1%-3%</text>
+    </g>
+  </svg>
+  <figcaption>深色区域代表相机真正"看"的地方：从铺满全画面，收到中央一片，再收到一个点。取样范围越小，越精确，也越依赖你自己判断该测哪里。</figcaption>
+</figure>
+
 ## 举个例子：逆光人像
 
 下午太阳在人物后面，你想拍一张人物脸部曝光正常的照片。

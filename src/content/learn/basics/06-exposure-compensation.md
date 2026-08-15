@@ -27,6 +27,40 @@ tags: ["曝光补偿", "EV", "曝光"]
 
 1EV 就是一档曝光的差别。+1EV 的意思是"比相机测出来的再亮一档"。
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 220" role="img" aria-label="曝光补偿刻度尺与对应画面明暗的示意">
+    <g>
+      <rect x="60" y="30" width="440" height="34" class="dia-fill-soft" />
+      <rect x="60" y="30" width="110" height="34" class="dia-fill" opacity="0.28" />
+      <rect x="390" y="30" width="110" height="34" class="dia-fill" opacity="0.06" />
+      <rect x="60" y="30" width="440" height="34" class="dia-stroke" />
+      <path class="dia-stroke" d="M60 64V82M170 64V82M280 64V82M390 64V82M500 64V82" />
+      <path class="dia-stroke-thin" d="M96.7 64V74M133.3 64V74M206.7 64V74M243.3 64V74M316.7 64V74M353.3 64V74M426.7 64V74M463.3 64V74" />
+      <text x="60" y="98" class="dia-text-label">-2</text>
+      <text x="170" y="98" class="dia-text-label">-1</text>
+      <text x="280" y="98" class="dia-text-label">0</text>
+      <text x="390" y="98" class="dia-text-label">+1</text>
+      <text x="500" y="98" class="dia-text-label">+2</text>
+      <text x="280" y="118" class="dia-text-muted">EV · 小格为 1/3 档</text>
+      <text x="115" y="20" class="dia-text-muted">压暗</text>
+      <text x="280" y="20" class="dia-text-muted">相机认为"刚好"</text>
+      <text x="445" y="20" class="dia-text-muted">提亮</text>
+    </g>
+    <g transform="translate(0, 140)">
+      <rect x="88" y="0" width="104" height="54" class="dia-fill" opacity="0.42" />
+      <rect x="88" y="0" width="104" height="54" class="dia-stroke" />
+      <text x="140" y="72" class="dia-text-muted">-1EV · 黑减</text>
+      <rect x="228" y="0" width="104" height="54" class="dia-fill" opacity="0.18" />
+      <rect x="228" y="0" width="104" height="54" class="dia-stroke" />
+      <text x="280" y="72" class="dia-text-muted">0EV</text>
+      <rect x="368" y="0" width="104" height="54" class="dia-fill" opacity="0.05" />
+      <rect x="368" y="0" width="104" height="54" class="dia-stroke" />
+      <text x="420" y="72" class="dia-text-muted">+1.5EV · 白加</text>
+    </g>
+  </svg>
+  <figcaption>刻度往左走画面变暗，往右走画面变亮。拍雪景往右加，拍黑色物体往左减，这就是"白加黑减"。</figcaption>
+</figure>
+
 ## 为什么需要曝光补偿
 
 因为相机不聪明，它不知道你在拍什么。它只知道"把一切都变成中等亮度"。

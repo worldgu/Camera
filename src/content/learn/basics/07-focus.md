@@ -41,6 +41,41 @@ tags: ["对焦", "AF-S", "AF-C", "MF"]
 
 **适合：** 微距、夜景拍星星、自动对焦对不上的时候。
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 250" role="img" aria-label="AF-S 单次对焦锁定与 AF-C 连续对焦追焦的行为差异示意">
+    <g transform="translate(24, 30)">
+      <text x="286" y="0" class="dia-text-label">AF-S · 对上就锁定</text>
+      <line x1="20" y1="52" x2="552" y2="52" class="dia-stroke-thin" stroke-dasharray="4 4" />
+      <rect x="72" y="30" width="44" height="44" class="dia-stroke" />
+      <circle cx="94" cy="52" r="11" class="dia-fill" />
+      <text x="94" y="98" class="dia-text-muted">半按合焦</text>
+      <rect x="256" y="30" width="44" height="44" class="dia-stroke-thin" stroke-dasharray="3 3" />
+      <circle cx="278" cy="52" r="11" class="dia-stroke-thin" />
+      <text x="278" y="98" class="dia-text-muted">物体走了，焦点没跟</text>
+      <circle cx="462" cy="52" r="13" class="dia-stroke-thin" opacity="0.55" />
+      <circle cx="462" cy="52" r="18" class="dia-stroke-thin" opacity="0.3" />
+      <text x="462" y="98" class="dia-text-muted">结果：糊了</text>
+      <path class="dia-stroke-thin" d="M124 18 H452" />
+      <path class="dia-fill" d="M452 18 l-8 -4 v8 z" />
+      <text x="288" y="10" class="dia-text-muted">物体前进方向</text>
+    </g>
+    <g transform="translate(24, 152)">
+      <text x="286" y="0" class="dia-text-label">AF-C · 焦点一路跟着走</text>
+      <line x1="20" y1="52" x2="552" y2="52" class="dia-stroke-thin" stroke-dasharray="4 4" />
+      <rect x="72" y="30" width="44" height="44" class="dia-stroke" />
+      <circle cx="94" cy="52" r="11" class="dia-fill" />
+      <rect x="256" y="30" width="44" height="44" class="dia-stroke" />
+      <circle cx="278" cy="52" r="11" class="dia-fill" />
+      <rect x="440" y="30" width="44" height="44" class="dia-stroke" />
+      <circle cx="462" cy="52" r="11" class="dia-fill" />
+      <text x="94" y="98" class="dia-text-muted">合焦</text>
+      <text x="278" y="98" class="dia-text-muted">持续修正</text>
+      <text x="462" y="98" class="dia-text-muted">结果：还是清晰</text>
+    </g>
+  </svg>
+  <figcaption>方框是对焦框，实心圆是被摄物体。AF-S 合焦后焦点就停在原地，物体一动就脱焦；AF-C 会一直重新测距，把焦点钉在物体上。</figcaption>
+</figure>
+
 ## 对焦点怎么选
 
 相机上有一堆对焦点（有的几十个，有的上百个），该用哪一个？

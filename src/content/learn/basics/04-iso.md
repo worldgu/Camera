@@ -38,6 +38,36 @@ ISO 用数字表示，常见的有：
 - **中 ISO（800-1600）**：有轻微噪点，但不影响看
 - **高 ISO（3200+）**：噪点明显，画质下降
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 190" role="img" aria-label="ISO 100 到 ISO 12800 画面噪点逐步增多的对比示意">
+    <g transform="translate(24, 24)">
+      <rect x="0" y="0" width="130" height="96" class="dia-fill-soft" />
+      <path class="dia-stroke-thin" d="M97.7 62.3h.01M17.7 35.6h.01M61.2 50.9h.01M121.4 16.9h.01" stroke-width="2.5" stroke-linecap="round" />
+      <text x="65" y="118" class="dia-text-label">ISO 100</text>
+      <text x="65" y="136" class="dia-text-muted">干净</text>
+    </g>
+    <g transform="translate(178, 24)">
+      <rect x="0" y="0" width="130" height="96" class="dia-fill-soft" />
+      <path class="dia-stroke-thin" d="M100.0 10.9h.01M95.7 78.5h.01M16.8 81.8h.01M98.7 40.2h.01M50.2 60.5h.01M53.3 54.1h.01M77.7 10.3h.01M93.0 65.5h.01M114.8 66.1h.01M83.4 67.9h.01M28.1 48.2h.01M111.6 83.8h.01M8.2 79.7h.01M81.1 40.2h.01M21.3 78.5h.01M35.9 55.8h.01" stroke-width="2.5" stroke-linecap="round" />
+      <text x="65" y="118" class="dia-text-label">ISO 800</text>
+      <text x="65" y="136" class="dia-text-muted">轻微颗粒</text>
+    </g>
+    <g transform="translate(332, 24)">
+      <rect x="0" y="0" width="130" height="96" class="dia-fill-soft" />
+      <path class="dia-stroke-thin" d="M67.5 41.4h.01M32.1 16.9h.01M63.1 58.6h.01M79.3 65.4h.01M57.4 10.0h.01M32.6 72.2h.01M55.7 53.5h.01M85.8 69.6h.01M25.2 45.2h.01M83.0 84.5h.01M39.2 81.6h.01M106.2 50.1h.01M74.3 84.6h.01M57.9 30.3h.01M100.1 14.5h.01M90.8 60.2h.01M52.2 84.9h.01M77.9 19.0h.01M55.2 86.2h.01M16.0 74.1h.01M70.8 73.0h.01M114.7 13.1h.01M56.4 46.5h.01M64.1 76.4h.01M13.3 21.1h.01M94.6 74.9h.01M117.9 13.7h.01M103.6 6.9h.01M99.4 25.4h.01M114.3 59.2h.01M61.7 19.2h.01M111.1 39.0h.01M117.4 8.3h.01M56.8 9.3h.01M38.4 86.3h.01M45.6 9.9h.01M50.3 65.6h.01M90.9 74.8h.01M19.8 49.0h.01M55.9 41.5h.01M76.5 14.4h.01M108.2 75.4h.01M75.4 31.4h.01M9.7 54.4h.01" stroke-width="2.5" stroke-linecap="round" />
+      <text x="65" y="118" class="dia-text-label">ISO 3200</text>
+      <text x="65" y="136" class="dia-text-muted">噪点可见</text>
+    </g>
+    <g transform="translate(486, 24)">
+      <rect x="0" y="0" width="130" height="96" class="dia-fill-soft" />
+      <path class="dia-stroke-thin" d="M64.7 36.2h.01M91.2 43.5h.01M59.5 8.2h.01M45.5 45.9h.01M59.3 13.4h.01M40.8 34.4h.01M112.4 66.3h.01M112.0 8.8h.01M33.0 51.2h.01M13.2 25.3h.01M72.1 6.1h.01M52.3 8.6h.01M34.4 81.2h.01M51.6 28.5h.01M113.5 77.9h.01M36.1 41.9h.01M29.3 70.2h.01M59.6 70.7h.01M95.0 17.2h.01M22.1 68.3h.01M108.8 21.2h.01M107.3 23.0h.01M46.2 59.5h.01M23.6 48.9h.01M57.4 14.2h.01M13.0 42.2h.01M65.3 48.7h.01M13.6 42.3h.01M121.3 65.5h.01M44.2 64.4h.01M52.7 53.9h.01M21.0 6.2h.01M89.6 44.7h.01M11.7 90.0h.01M80.0 25.7h.01M65.5 73.5h.01M62.6 65.5h.01M6.9 73.3h.01M73.4 35.8h.01M54.5 79.4h.01M117.2 31.4h.01M103.8 33.8h.01M69.1 10.9h.01M49.0 47.3h.01M12.2 82.3h.01M95.6 82.0h.01M65.7 21.7h.01M50.7 11.8h.01M65.8 45.6h.01M37.5 71.4h.01M86.2 88.4h.01M53.8 57.2h.01M23.5 38.7h.01M90.2 32.1h.01M98.9 49.4h.01M26.5 14.4h.01M13.4 57.2h.01M36.0 33.7h.01M110.7 9.0h.01M61.9 62.8h.01M32.5 87.1h.01M110.8 59.8h.01M27.7 31.2h.01M35.4 26.2h.01M14.9 77.9h.01M95.5 8.6h.01M118.1 50.4h.01M110.7 32.6h.01M101.4 17.3h.01M25.8 50.9h.01M88.6 39.3h.01M103.0 33.1h.01M116.8 42.7h.01M105.7 66.5h.01M27.5 9.7h.01M53.5 72.3h.01M59.7 63.7h.01M34.6 82.7h.01M47.9 23.3h.01M14.5 23.7h.01M21.8 20.0h.01M6.2 55.1h.01M106.3 35.0h.01M123.6 84.8h.01M82.6 33.1h.01M117.9 27.5h.01M40.0 76.9h.01M61.6 72.6h.01M56.1 64.5h.01M18.5 38.3h.01M116.9 78.7h.01M73.7 51.0h.01" stroke-width="2.5" stroke-linecap="round" />
+      <text x="65" y="118" class="dia-text-label">ISO 12800</text>
+      <text x="65" y="136" class="dia-text-muted">噪点密集</text>
+    </g>
+  </svg>
+  <figcaption>每升一档 ISO，画面里的杂点数量大致翻倍。低感几乎看不到，到了高感就糊成一片颗粒。</figcaption>
+</figure>
+
 现在的相机高感越来越好了，很多全画幅相机 ISO 3200 都挺干净。但不管多好的相机，ISO 越高画质越差，这个规律不变。
 
 ## 三要素的联动

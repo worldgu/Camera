@@ -25,6 +25,59 @@ tags: ["模式转盘", "P档", "A档", "S档", "M档"]
 
 > 注：佳能叫 Av/Tv，尼康/索尼叫 A/S，意思是一样的。
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 250" role="img" aria-label="模式转盘档位排布，以及 P/A/S/M 各档由谁决定光圈与快门的对照">
+    <g>
+      <circle cx="110" cy="118" r="56" class="dia-fill-soft" />
+      <circle cx="110" cy="118" r="56" class="dia-stroke" />
+      <path class="dia-stroke" d="M110 118 L110 70" />
+      <circle cx="110" cy="118" r="5" class="dia-fill" />
+      <path class="dia-stroke-thin" d="M48.9 107.2 L37.1 105.2M70.1 70.5 L62.4 61.3M110 56 L110 44M149.9 70.5 L157.6 61.3M171.1 107.2 L182.9 105.2" />
+      <text x="64.7" y="114.0" class="dia-text-label">Auto</text>
+      <text x="80.4" y="86.8" class="dia-text-label">P</text>
+      <text x="110.0" y="76.0" class="dia-text-label">A</text>
+      <text x="139.6" y="86.8" class="dia-text-label">S</text>
+      <text x="155.3" y="114.0" class="dia-text-label">M</text>
+      <text x="110" y="205" class="dia-text-muted">转盘档位</text>
+      <text x="110" y="223" class="dia-text-muted">左边越自动，右边越手动</text>
+    </g>
+    <g transform="translate(258, 34)">
+      <text x="52" y="0" class="dia-text-muted">档位</text>
+      <text x="168" y="0" class="dia-text-muted">光圈</text>
+      <text x="272" y="0" class="dia-text-muted">快门</text>
+      <g transform="translate(0, 16)">
+        <text x="52" y="18" class="dia-text-label">P</text>
+        <rect x="120" y="2" width="96" height="24" class="dia-fill-soft" />
+        <text x="168" y="19" class="dia-text">相机</text>
+        <rect x="224" y="2" width="96" height="24" class="dia-fill-soft" />
+        <text x="272" y="19" class="dia-text">相机</text>
+      </g>
+      <g transform="translate(0, 54)">
+        <text x="52" y="18" class="dia-text-label">A / Av</text>
+        <rect x="120" y="2" width="96" height="24" class="dia-fill" />
+        <text x="168" y="19" class="dia-text-invert">你</text>
+        <rect x="224" y="2" width="96" height="24" class="dia-fill-soft" />
+        <text x="272" y="19" class="dia-text">相机</text>
+      </g>
+      <g transform="translate(0, 92)">
+        <text x="52" y="18" class="dia-text-label">S / Tv</text>
+        <rect x="120" y="2" width="96" height="24" class="dia-fill-soft" />
+        <text x="168" y="19" class="dia-text">相机</text>
+        <rect x="224" y="2" width="96" height="24" class="dia-fill" />
+        <text x="272" y="19" class="dia-text-invert">你</text>
+      </g>
+      <g transform="translate(0, 130)">
+        <text x="52" y="18" class="dia-text-label">M</text>
+        <rect x="120" y="2" width="96" height="24" class="dia-fill" />
+        <text x="168" y="19" class="dia-text-invert">你</text>
+        <rect x="224" y="2" width="96" height="24" class="dia-fill" />
+        <text x="272" y="19" class="dia-text-invert">你</text>
+      </g>
+    </g>
+  </svg>
+  <figcaption>实心格是你说了算，浅色格交给相机。A 档锁光圈、S 档锁快门，两个都锁上就是 M 档。</figcaption>
+</figure>
+
 ## 每个档位怎么用
 
 ### Auto（全自动）

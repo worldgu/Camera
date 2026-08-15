@@ -1,3 +1,3 @@
-﻿# Camera
+# Camera
 
 Camera project.

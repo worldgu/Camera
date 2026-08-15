@@ -1,7 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import worksData from '../data/works.json';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// 最新作品预览：按拍摄日期取最近三张，与作品列表页的排序口径一致
+const latestWorks = [...worksData]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout title="Camera" transparentNav={true}>
@@ -21,15 +27,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="container">
       <h2 class="home-section__title">最 新 作 品</h2>
       <div class="home-preview">
-        <a href={`${base}/works/`} class="home-preview__item">
-          <div class="home-preview__img home-preview__img--1"></div>
-        </a>
-        <a href={`${base}/works/`} class="home-preview__item">
-          <div class="home-preview__img home-preview__img--2"></div>
-        </a>
-        <a href={`${base}/works/`} class="home-preview__item">
-          <div class="home-preview__img home-preview__img--3"></div>
-        </a>
+        {latestWorks.map((work) => (
+          <a
+            href={`${base}/works/${work.slug}/`}
+            class="home-preview__item"
+            aria-label={work.title}
+          >
+            <div class="home-preview__img" style={`background: ${work.color}`}></div>
+          </a>
+        ))}
       </div>
       <div class="home-section__more">
         <a href={`${base}/works/`} class="link-more">查看全部作品 →</a>
@@ -98,16 +104,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 .home-preview__item:hover .home-preview__img {
   transform: scale(1.03);
-}
-
-.home-preview__img--1 {
-  background: linear-gradient(135deg, #d4d4d4 0%, #888 100%);
-}
-.home-preview__img--2 {
-  background: linear-gradient(135deg, #a0a0a0 0%, #444 100%);
-}
-.home-preview__img--3 {
-  background: linear-gradient(135deg, #c0c0c0 0%, #666 100%);
 }
 
 .home-section__more {

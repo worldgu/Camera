@@ -10,6 +10,7 @@ const learn = defineCollection({
     order: z.number(),
     date: z.string(),
     tags: z.array(z.string()),
+    cover: z.string().optional(),
   }),
 });
 

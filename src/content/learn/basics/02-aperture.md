@@ -25,6 +25,33 @@ tags: ["光圈", "曝光三要素", "景深"]
 
 不用记原理，记住结论就行：**数字小 = 光圈大 = 进光多**。
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 200" role="img" aria-label="不同 f 值下光圈叶片开合程度的对比示意">
+    <g transform="translate(100, 82)">
+      <circle cx="0" cy="0" r="62" class="dia-stroke-thin" />
+      <path class="dia-fill" d="M42.5,17.6 L17.6,42.5 L-17.6,42.5 L-42.5,17.6 L-42.5,-17.6 L-17.6,-42.5 L17.6,-42.5 L42.5,-17.6 Z" />
+      <path class="dia-stroke-thin" d="M42.5,17.6L57.3,23.7M17.6,42.5L23.7,57.3M-17.6,42.5L-23.7,57.3M-42.5,17.6L-57.3,23.7M-42.5,-17.6L-57.3,-23.7M-17.6,-42.5L-23.7,-57.3M17.6,-42.5L23.7,-57.3M42.5,-17.6L57.3,-23.7" />
+      <text x="0" y="88" class="dia-text-label">f/2.8</text>
+      <text x="0" y="107" class="dia-text-muted">开口大 · 进光多</text>
+    </g>
+    <g transform="translate(310, 82)">
+      <circle cx="0" cy="0" r="62" class="dia-stroke-thin" />
+      <path class="dia-fill" d="M24.0,9.9 L9.9,24.0 L-9.9,24.0 L-24.0,9.9 L-24.0,-9.9 L-9.9,-24.0 L9.9,-24.0 L24.0,-9.9 Z" />
+      <path class="dia-stroke-thin" d="M24.0,9.9L57.3,23.7M9.9,24.0L23.7,57.3M-9.9,24.0L-23.7,57.3M-24.0,9.9L-57.3,23.7M-24.0,-9.9L-57.3,-23.7M-9.9,-24.0L-23.7,-57.3M9.9,-24.0L23.7,-57.3M24.0,-9.9L57.3,-23.7" />
+      <text x="0" y="88" class="dia-text-label">f/8</text>
+      <text x="0" y="107" class="dia-text-muted">开口中等</text>
+    </g>
+    <g transform="translate(520, 82)">
+      <circle cx="0" cy="0" r="62" class="dia-stroke-thin" />
+      <path class="dia-fill" d="M10.2,4.2 L4.2,10.2 L-4.2,10.2 L-10.2,4.2 L-10.2,-4.2 L-4.2,-10.2 L4.2,-10.2 L10.2,-4.2 Z" />
+      <path class="dia-stroke-thin" d="M10.2,4.2L57.3,23.7M4.2,10.2L23.7,57.3M-4.2,10.2L-23.7,57.3M-10.2,4.2L-57.3,23.7M-10.2,-4.2L-57.3,-23.7M-4.2,-10.2L-23.7,-57.3M4.2,-10.2L23.7,-57.3M10.2,-4.2L57.3,-23.7" />
+      <text x="0" y="88" class="dia-text-label">f/16</text>
+      <text x="0" y="107" class="dia-text-muted">开口小 · 进光少</text>
+    </g>
+  </svg>
+  <figcaption>光圈叶片的开合：f 值越小，中间的通光孔越大，进光量越多。</figcaption>
+</figure>
+
 ## 光圈影响什么
 
 光圈主要影响两件事：
@@ -43,6 +70,36 @@ tags: ["光圈", "曝光三要素", "景深"]
 - 小光圈（f/8、f/16）→ 景深深 → 从近到远都清晰
 
 这就是为什么拍人像喜欢用大光圈——背景虚化，人物突出。拍风光喜欢用小光圈——从近到远全都清楚。
+
+<figure class="diagram">
+  <svg viewBox="0 0 620 260" role="img" aria-label="大光圈与小光圈下清晰范围的对比示意">
+    <g transform="translate(20, 20)">
+      <text x="270" y="0" class="dia-text-label">f/1.8 · 景深浅</text>
+      <line x1="20" y1="42" x2="540" y2="42" class="dia-stroke-thin" />
+      <rect x="196" y="26" width="80" height="32" class="dia-fill-soft" />
+      <circle cx="60" cy="42" r="7" class="dia-stroke-thin" />
+      <circle cx="130" cy="42" r="7" class="dia-stroke-thin" />
+      <circle cx="236" cy="42" r="9" class="dia-fill" />
+      <circle cx="380" cy="42" r="7" class="dia-stroke-thin" />
+      <circle cx="490" cy="42" r="7" class="dia-stroke-thin" />
+      <text x="236" y="80" class="dia-text-muted">清晰范围窄</text>
+      <text x="60" y="80" class="dia-text-muted">虚</text>
+      <text x="490" y="80" class="dia-text-muted">虚</text>
+    </g>
+    <g transform="translate(20, 150)">
+      <text x="270" y="0" class="dia-text-label">f/16 · 景深深</text>
+      <line x1="20" y1="42" x2="540" y2="42" class="dia-stroke-thin" />
+      <rect x="36" y="26" width="472" height="32" class="dia-fill-soft" />
+      <circle cx="60" cy="42" r="7" class="dia-fill" />
+      <circle cx="130" cy="42" r="7" class="dia-fill" />
+      <circle cx="236" cy="42" r="9" class="dia-fill" />
+      <circle cx="380" cy="42" r="7" class="dia-fill" />
+      <circle cx="490" cy="42" r="7" class="dia-fill" />
+      <text x="270" y="80" class="dia-text-muted">从近到远都清晰</text>
+    </g>
+  </svg>
+  <figcaption>浅灰底表示清晰范围：大光圈只有对焦点附近实，小光圈则前后通吃。实心圆为清晰，空心圆为虚化。</figcaption>
+</figure>
 
 ## 常见光圈档位
 

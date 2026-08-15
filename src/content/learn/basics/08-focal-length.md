@@ -24,6 +24,26 @@ tags: ["焦距", "镜头", "视角"]
 - 用 50mm 拍，能拍下山上的一棵树
 - 用 200mm 拍，能拍到树上的一只鸟
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 240" role="img" aria-label="同一机位下不同焦距的视角范围对比">
+    <g transform="translate(60, 0)">
+      <path class="dia-fill-soft" d="M0,110 L430,13 L430,207 Z" />
+      <path class="dia-stroke-thin" d="M0,110 L430,66 M0,110 L430,154" />
+      <path class="dia-stroke-thin" d="M0,110 L430,79 M0,110 L430,141" />
+      <path class="dia-stroke" d="M0,110 L430,102 M0,110 L430,118" />
+      <path class="dia-fill" d="M-14,98 L0,98 L0,122 L-14,122 Z" />
+      <text x="-30" y="114" class="dia-text-muted">机位</text>
+      <line x1="430" y1="8" x2="430" y2="212" class="dia-stroke-thin" />
+      <text x="470" y="18" class="dia-text-label">16mm</text>
+      <text x="470" y="62" class="dia-text-label">35mm</text>
+      <text x="470" y="84" class="dia-text-label">50mm</text>
+      <text x="470" y="114" class="dia-text-label">200mm</text>
+      <text x="215" y="232" class="dia-text-muted">站在同一个地方不动，焦距越长，能框进画面的范围越窄</text>
+    </g>
+  </svg>
+  <figcaption>张角按全画幅水平视角等比绘制：16mm 约 97°，35mm 约 54°，50mm 约 40°，200mm 只剩约 10°。</figcaption>
+</figure>
+
 ## 常见焦段分类
 
 按全画幅来算（APS-C 画幅要乘一个系数，比如 1.5x 或 1.6x），大致可以分成这几类：

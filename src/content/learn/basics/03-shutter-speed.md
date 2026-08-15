@@ -26,6 +26,29 @@ tags: ["快门", "曝光三要素", "动态"]
 
 每差一档，进光量差一倍。比如 1/250s 的进光量是 1/500s 的两倍，是 1/125s 的一半。
 
+<figure class="diagram">
+  <svg viewBox="0 0 620 150" role="img" aria-label="快门速度时间轴，从高速到长曝光">
+    <line x1="40" y1="60" x2="580" y2="60" class="dia-stroke" />
+    <g class="dia-stroke-thin">
+      <line x1="40" y1="52" x2="40" y2="68" />
+      <line x1="175" y1="52" x2="175" y2="68" />
+      <line x1="310" y1="52" x2="310" y2="68" />
+      <line x1="445" y1="52" x2="445" y2="68" />
+      <line x1="580" y1="52" x2="580" y2="68" />
+    </g>
+    <text x="40" y="44" class="dia-text-label">1/1000s</text>
+    <text x="175" y="44" class="dia-text-label">1/250s</text>
+    <text x="310" y="44" class="dia-text-label">1/60s</text>
+    <text x="445" y="44" class="dia-text-label">1/15s</text>
+    <text x="580" y="44" class="dia-text-label">30s</text>
+    <text x="40" y="90" class="dia-text-muted">快</text>
+    <text x="580" y="90" class="dia-text-muted">慢</text>
+    <text x="150" y="122" class="dia-text">进光少 · 凝固动作</text>
+    <text x="470" y="122" class="dia-text">进光多 · 拖出轨迹</text>
+  </svg>
+  <figcaption>快门速度时间轴：往左越快，画面越容易定住；往右越慢，进光越多、动态越明显。</figcaption>
+</figure>
+
 ## 快门影响什么
 
 ### 1. 曝光（亮度）
@@ -45,6 +68,28 @@ tags: ["快门", "曝光三要素", "动态"]
 - 拍夜景车灯：30s 长曝 → 车流变成光的河流
 - 拍瀑布：1s - 5s → 水流变成丝滑的绸缎
 - 拍星空：10s - 30s → 星星更亮
+
+<figure class="diagram">
+  <svg viewBox="0 0 620 200" role="img" aria-label="高速快门凝固与低速快门拖影的画面对比">
+    <g transform="translate(20, 20)">
+      <rect x="0" y="0" width="270" height="120" class="dia-fill-soft" />
+      <circle cx="200" cy="60" r="18" class="dia-fill" />
+      <text x="135" y="152" class="dia-text-label">1/1000s</text>
+      <text x="135" y="172" class="dia-text-muted">边缘清楚，动作被定住</text>
+    </g>
+    <g transform="translate(330, 20)">
+      <rect x="0" y="0" width="270" height="120" class="dia-fill-soft" />
+      <circle cx="60" cy="60" r="18" class="dia-fill" opacity="0.18" />
+      <circle cx="105" cy="60" r="18" class="dia-fill" opacity="0.3" />
+      <circle cx="150" cy="60" r="18" class="dia-fill" opacity="0.45" />
+      <circle cx="195" cy="60" r="18" class="dia-fill" opacity="0.7" />
+      <circle cx="240" cy="60" r="18" class="dia-fill" />
+      <text x="135" y="152" class="dia-text-label">1/15s</text>
+      <text x="135" y="172" class="dia-text-muted">同一物体拖出一串残影</text>
+    </g>
+  </svg>
+  <figcaption>同一个横向移动的物体：快门够快就是一个清楚的点，快门慢下来就成了一道轨迹。</figcaption>
+</figure>
 
 ## 安全快门是什么
 

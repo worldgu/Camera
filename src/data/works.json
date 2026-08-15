@@ -214,5 +214,24 @@
     "description": "插了一枝梅花在桌上，满屋都是春的味道。",
     "color": "linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 50%, #a0aec0 100%)",
     "aspectRatio": 1.2
+  },
+  {
+    "id": 13,
+    "slug": "ocean-long-exposure",
+    "title": "浪之诗",
+    "category": "landscape",
+    "project": "山川行旅",
+    "date": "2026-08-10",
+    "location": "东海礁石滩",
+    "camera": "Sony A7M4",
+    "lens": "Sony 24-70mm F2.8 GM II",
+    "aperture": "f/11",
+    "shutter": "30s",
+    "iso": "ISO 100",
+    "focalLength": "24mm",
+    "description": "长曝光下的海浪像丝绸一样铺开，云在空中缓慢流动。黑白消去了颜色的干扰，只剩下光和影的呼吸。",
+    "image": "/Camera/images/works/ocean-long-exposure.jpg",
+    "color": "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
+    "aspectRatio": 1.78
   }
 ]

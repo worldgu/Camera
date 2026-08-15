@@ -124,6 +124,75 @@ ol {
   letter-spacing: 0.02em;
 }
 
+/* ---------- 教程图解 (Markdown 内嵌 SVG) ---------- */
+figure.diagram {
+  margin: 32px auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+figure.diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+figure.diagram svg .dia-stroke {
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+figure.diagram svg .dia-stroke-thin {
+  stroke: var(--fg-muted);
+  stroke-width: 1;
+  fill: none;
+}
+
+figure.diagram svg .dia-fill {
+  fill: var(--fg);
+}
+
+figure.diagram svg .dia-fill-soft {
+  fill: var(--bg-secondary);
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+figure.diagram svg .dia-text {
+  fill: var(--fg-secondary);
+  font-size: 12px;
+  font-family: var(--font-sans);
+  text-anchor: middle;
+}
+
+figure.diagram svg .dia-text-muted {
+  fill: var(--fg-muted);
+  font-size: 11px;
+  font-family: var(--font-sans);
+  text-anchor: middle;
+}
+
+figure.diagram svg .dia-text-label {
+  fill: var(--fg);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  text-anchor: middle;
+}
+
+figure.diagram figcaption {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--fg-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  figure.diagram {
+    margin: 24px auto;
+  }
+}
+
 /* ---------- 导航栏 ---------- */
 .nav {
   position: fixed;

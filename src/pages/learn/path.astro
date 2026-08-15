@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { slugOf } from '../../utils/slug';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -47,7 +48,7 @@ const categories = [
               <ol class="path-steps">
                 {basics.map((post) => (
                   <li class="path-step">
-                    <a href={`${base}/learn/${post.data.category}/${post.id.replace(/^\d+-/, '')}/`} class="path-step__link">
+                    <a href={`${base}/learn/${post.data.category}/${slugOf(post)}/`} class="path-step__link">
                       <span class="path-step__dot"></span>
                       <span class="path-step__title">{post.data.title}</span>
                       <span class="path-step__arrow">→</span>

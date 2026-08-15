@@ -2,24 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { slugOf } from '../../utils/slug';
+import { buildCategoryIndex } from '../../data/categories';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// 获取所有教程文章，按分类 + order 排序
+// 分类与状态由 categories.ts 统一推导，新增文章即自动点亮对应分类
 const allPosts = await getCollection('learn');
-const basics = allPosts
-  .filter((p) => p.data.category === 'basics')
-  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-
-const categories = [
-  { key: 'basics', label: '基础篇', status: 'active', desc: '从零开始，建立摄影的底层认知' },
-  { key: 'composition', label: '构图篇', status: 'soon', desc: '经典构图法与视觉语言' },
-  { key: 'light', label: '光线篇', status: 'soon', desc: '理解光，运用光' },
-  { key: 'subjects', label: '题材篇', status: 'soon', desc: '人像、风光、街拍、静物……' },
-  { key: 'operation', label: '操作篇', status: 'soon', desc: '白平衡、胶片模拟、RAW' },
-  { key: 'post', label: '后期篇', status: 'soon', desc: 'Lightroom 基础与调色思路' },
-  { key: 'gear', label: '器材篇', status: 'soon', desc: '认识相机与镜头体系' },
-];
+const categories = buildCategoryIndex(allPosts);
 ---
 
 <BaseLayout title="学习路径" description="从零开始，系统学习摄影">
@@ -40,13 +29,13 @@ const categories = [
                   {cat.label}
                   {cat.status === 'soon' && <span class="badge-soon">即将推出</span>}
                 </h2>
-                <p class="path-section__desc">{cat.desc}</p>
+                <p class="path-section__desc">{cat.pathDesc}</p>
               </div>
             </div>
 
-            {cat.status === 'active' && cat.key === 'basics' && (
+            {cat.status === 'active' && (
               <ol class="path-steps">
-                {basics.map((post) => (
+                {cat.posts.map((post) => (
                   <li class="path-step">
                     <a href={`${base}/learn/${post.data.category}/${slugOf(post)}/`} class="path-step__link">
                       <span class="path-step__dot"></span>

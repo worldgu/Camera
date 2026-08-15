@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { slugOf } from '../../../utils/slug';
+import { categoryLabels } from '../../../data/categories';
 
 export async function getStaticPaths() {
   const posts = await getCollection('learn');
@@ -27,17 +28,6 @@ const sameCategory = allPosts
 const currentIndex = sameCategory.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex > 0 ? sameCategory[currentIndex - 1] : null;
 const nextPost = currentIndex < sameCategory.length - 1 ? sameCategory[currentIndex + 1] : null;
-
-// 分类中文名
-const categoryLabels: Record<string, string> = {
-  basics: '基础篇',
-  composition: '构图篇',
-  light: '光线篇',
-  subjects: '题材篇',
-  operation: '操作篇',
-  post: '后期篇',
-  gear: '器材篇',
-};
 
 const categoryLabel = categoryLabels[post.data.category] || post.data.category;
 ---

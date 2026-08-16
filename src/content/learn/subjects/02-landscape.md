@@ -29,21 +29,18 @@ tags: ["风光", "构图层次", "黄金时刻", "长曝光", "三脚架"]
   <svg viewBox="0 0 620 300" role="img" aria-label="风光摄影前中后三层纵深结构示意">
     <g transform="translate(30, 20)">
       <rect x="0" y="0" width="560" height="260" class="dia-stroke-thin" fill="none" />
-
       <!-- 远景：天空 + 远山 -->
       <path d="M 0 80 L 80 50 L 150 70 L 230 40 L 320 65 L 400 45 L 490 60 L 560 50 L 560 110 L 0 110 Z"
             class="dia-fill" opacity="0.08" />
       <path d="M 0 80 L 80 50 L 150 70 L 230 40 L 320 65 L 400 45 L 490 60 L 560 50"
             class="dia-stroke-thin" fill="none" />
       <text x="280" y="25" class="dia-text-muted">远景：天空、远山——拉开空间</text>
-
       <!-- 中景：山/湖/树 -->
       <path d="M 0 140 L 100 110 L 200 130 L 300 100 L 420 125 L 560 115 L 560 170 L 0 170 Z"
             class="dia-fill" opacity="0.14" />
       <path d="M 0 140 L 100 110 L 200 130 L 300 100 L 420 125 L 560 115"
             class="dia-stroke-thin" fill="none" />
       <text x="280" y="150" class="dia-text-label">中景：画面主体——山、湖、建筑</text>
-
       <!-- 前景：石头、草、水 -->
       <path d="M 0 220 Q 140 190 280 210 T 560 200 L 560 260 L 0 260 Z"
             class="dia-fill" opacity="0.2" />

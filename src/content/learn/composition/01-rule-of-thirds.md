@@ -20,7 +20,7 @@ tags: ["三分法", "九宫格", "构图基础"]
 三分法的做法是：把画面里最重要的东西，放在某条线上或某个交点上。
 
 <figure class="diagram">
-  <svg viewBox="0 0 620 260" role="img" aria-label="九宫格的两条竖线两条横线与四个交点位置示意">
+  <svg viewBox="0 0 620 280" role="img" aria-label="九宫格的两条竖线两条横线与四个交点位置示意">
     <g transform="translate(60, 20)">
       <rect x="0" y="0" width="360" height="216" class="dia-stroke-thin" />
       <path class="dia-stroke-thin" d="M120,0 L120,216 M240,0 L240,216 M0,72 L360,72 M0,144 L360,144" />

@@ -14,33 +14,30 @@ tags: ["配件", "存储卡", "三脚架", "滤镜", "器材入门"]
 ## 优先级总览
 
 <figure class="diagram">
-  <svg viewBox="0 0 620 280" role="img" aria-label="相机配件按投入优先级从必需到可选的排列">
+  <svg viewBox="0 0 620 294" role="img" aria-label="相机配件按投入优先级从必需到可选的排列">
     <g transform="translate(34, 26)">
       <rect x="0" y="0" width="180" height="64" class="dia-fill" opacity="0.28" />
       <rect x="0" y="0" width="180" height="64" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="26" class="dia-text-label">立刻就要</text>
-      <text x="14" y="48" class="dia-text-muted">存储卡、备用电池</text>
-
+      <text x="14" y="26" class="dia-text-label dia-text-start">立刻就要</text>
+      <text x="14" y="48" class="dia-text-muted dia-text-start">存储卡、备用电池</text>
       <rect x="0" y="78" width="256" height="64" class="dia-fill" opacity="0.2" />
       <rect x="0" y="78" width="256" height="64" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="104" class="dia-text-label">很快就要</text>
-      <text x="14" y="126" class="dia-text-muted">气吹与镜头布、能背出门的包、结实背带</text>
-
+      <text x="14" y="104" class="dia-text-label dia-text-start">很快就要</text>
+      <text x="14" y="126" class="dia-text-muted dia-text-start">气吹与镜头布、能背出门的包、结实背带</text>
       <rect x="0" y="156" width="330" height="64" class="dia-fill" opacity="0.12" />
       <rect x="0" y="156" width="330" height="64" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="182" class="dia-text-label">看题材再买</text>
-      <text x="14" y="204" class="dia-text-muted">三脚架、CPL 与 ND 滤镜、反光板、闪光灯</text>
-
+      <text x="14" y="182" class="dia-text-label dia-text-start">看题材再买</text>
+      <text x="14" y="204" class="dia-text-muted dia-text-start">三脚架、CPL 与 ND 滤镜、反光板、闪光灯</text>
       <rect x="0" y="234" width="404" height="42" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="260" class="dia-text-muted">可以先不买：UV 镜、原厂专用包、遥控快门、外置监视器</text>
+      <text x="14" y="260" class="dia-text-muted dia-text-start">可以先不买：UV 镜、原厂专用包、遥控快门、外置监视器</text>
     </g>
     <g transform="translate(468, 60)">
-      <text x="0" y="0" class="dia-text-label">分配思路</text>
-      <text x="0" y="26" class="dia-text-muted">配件总预算</text>
-      <text x="0" y="48" class="dia-text-muted">控制在器材的</text>
-      <text x="0" y="70" class="dia-text-muted">一成到两成</text>
-      <text x="0" y="106" class="dia-text-muted">剩下的钱</text>
-      <text x="0" y="128" class="dia-text-muted">留给下一支镜头</text>
+      <text x="0" y="0" class="dia-text-label dia-text-start">分配思路</text>
+      <text x="0" y="26" class="dia-text-muted dia-text-start">配件总预算</text>
+      <text x="0" y="48" class="dia-text-muted dia-text-start">控制在器材的</text>
+      <text x="0" y="70" class="dia-text-muted dia-text-start">一成到两成</text>
+      <text x="0" y="106" class="dia-text-muted dia-text-start">剩下的钱</text>
+      <text x="0" y="128" class="dia-text-muted dia-text-start">留给下一支镜头</text>
     </g>
   </svg>
   <figcaption>色块越深越紧急。真正拦住你出片的通常只有最上面那一层，下面几层都可以等到具体需求出现再补。</figcaption>

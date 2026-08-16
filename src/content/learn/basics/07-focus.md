@@ -42,7 +42,7 @@ tags: ["对焦", "AF-S", "AF-C", "MF"]
 **适合：** 微距、夜景拍星星、自动对焦对不上的时候。
 
 <figure class="diagram">
-  <svg viewBox="0 0 620 250" role="img" aria-label="AF-S 单次对焦锁定与 AF-C 连续对焦追焦的行为差异示意">
+  <svg viewBox="0 0 620 262" role="img" aria-label="AF-S 单次对焦锁定与 AF-C 连续对焦追焦的行为差异示意">
     <g transform="translate(24, 30)">
       <text x="286" y="0" class="dia-text-label">AF-S · 对上就锁定</text>
       <line x1="20" y1="52" x2="552" y2="52" class="dia-stroke-thin" stroke-dasharray="4 4" />

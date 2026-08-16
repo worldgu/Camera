@@ -20,20 +20,20 @@ tags: ["镜头", "卡口", "定焦", "变焦", "等效焦距"]
 <figure class="diagram">
   <svg viewBox="0 0 620 250" role="img" aria-label="镜头型号各段含义的拆解示意">
     <g transform="translate(30, 34)">
-      <text x="0" y="0" class="dia-text-label">RF-S  18-150mm  F3.5-6.3  IS  STM</text>
+      <text x="0" y="0" class="dia-text-label dia-text-start">RF-S  18-150mm  F3.5-6.3  IS  STM</text>
       <path class="dia-stroke-thin" d="M6,14 L6,44 L120,44" />
-      <text x="128" y="48" class="dia-text-muted">卡口与画幅：RF 卡口，S 表示为 APS-C 设计</text>
+      <text x="128" y="48" class="dia-text-muted dia-text-start">卡口与画幅：RF 卡口，S 表示为 APS-C 设计</text>
       <path class="dia-stroke-thin" d="M76,14 L76,74 L120,74" />
-      <text x="128" y="78" class="dia-text-muted">焦距范围：变焦头，广角端 18 到长焦端 150</text>
+      <text x="128" y="78" class="dia-text-muted dia-text-start">焦距范围：变焦头，广角端 18 到长焦端 150</text>
       <path class="dia-stroke-thin" d="M172,14 L172,104 L220,104" />
-      <text x="228" y="108" class="dia-text-muted">最大光圈：广角端 F3.5，长焦端只有 F6.3</text>
+      <text x="228" y="108" class="dia-text-muted dia-text-start">最大光圈：广角端 F3.5，长焦端只有 F6.3</text>
       <path class="dia-stroke-thin" d="M252,14 L252,134 L300,134" />
-      <text x="308" y="138" class="dia-text-muted">IS：光学防抖</text>
+      <text x="308" y="138" class="dia-text-muted dia-text-start">IS：光学防抖</text>
       <path class="dia-stroke-thin" d="M286,14 L286,164 L330,164" />
-      <text x="338" y="168" class="dia-text-muted">STM：步进马达，对焦安静</text>
+      <text x="338" y="168" class="dia-text-muted dia-text-start">STM：步进马达，对焦安静</text>
     </g>
     <g transform="translate(30, 224)">
-      <text x="0" y="0" class="dia-text-muted">只有一个焦距数字，就是定焦；只有一个光圈数字，就是恒定光圈。</text>
+      <text x="0" y="0" class="dia-text-muted dia-text-start">只有一个焦距数字，就是定焦；只有一个光圈数字，就是恒定光圈。</text>
     </g>
   </svg>
   <figcaption>看镜头先看三段：卡口、焦距、最大光圈。后面的字母是马达和防抖，属于加分项而非决定项。</figcaption>

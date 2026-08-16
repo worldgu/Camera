@@ -35,30 +35,23 @@ tags: ["街拍", "决定性瞬间", "预判", "人文", "抓拍"]
       <!-- 俯视街道 -->
       <rect x="0" y="0" width="560" height="240" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="0" width="560" height="240" class="dia-fill" opacity="0.03" />
-
       <!-- 人行道中线 -->
       <line x1="0" y1="120" x2="560" y2="120" class="dia-stroke-thin" stroke-dasharray="6 6" />
-
       <!-- 拍摄者 -->
       <circle cx="100" cy="120" r="8" class="dia-fill" />
       <text x="100" y="105" class="dia-text-label">你</text>
-
       <!-- 28mm 取景范围（最近最宽） -->
       <path d="M 100 120 L 300 60 L 380 120 L 300 180 Z" class="dia-stroke" fill="none" />
       <text x="340" y="75" class="dia-text-muted">28mm</text>
-
       <!-- 35mm 取景 -->
       <path d="M 100 120 L 360 75 L 420 120 L 360 165 Z" class="dia-stroke-thin" fill="none" />
       <text x="390" y="92" class="dia-text-muted">35mm</text>
-
       <!-- 50mm 取景 -->
       <path d="M 100 120 L 430 95 L 470 120 L 430 145 Z" class="dia-stroke-thin" fill="none" />
       <text x="450" y="112" class="dia-text-muted">50mm</text>
-
       <!-- 盲拍/腰平 -->
       <circle cx="100" cy="150" r="5" class="dia-fill" opacity="0.5" />
       <text x="140" y="155" class="dia-text-muted">腰平盲拍位置（更低调）</text>
-
       <!-- 主体人物 -->
       <circle cx="300" cy="120" r="7" class="dia-fill" />
       <text x="300" y="142" class="dia-text-muted">主体</text>

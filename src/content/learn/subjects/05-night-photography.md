@@ -28,13 +28,11 @@ tags: ["夜景", "长曝光", "三脚架", "噪点", "城市风光"]
   <svg viewBox="0 0 620 300" role="img" aria-label="夜景三种曝光策略对比">
     <g transform="translate(30, 20)">
       <!-- 三列对比 -->
-
       <!-- 高ISO手持 -->
       <rect x="0" y="10" width="180" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="10" width="180" height="260" class="dia-fill" opacity="0.03" />
       <text x="90" y="32" class="dia-text-label">高 ISO 手持</text>
       <text x="90" y="52" class="dia-text-muted">灵活 · 有噪点</text>
-
       <!-- 噪点示意颗粒 -->
       <g opacity="0.5">
         <circle cx="20" cy="70" r="1" class="dia-fill" />
@@ -51,41 +49,33 @@ tags: ["夜景", "长曝光", "三脚架", "噪点", "城市风光"]
         <circle cx="130" cy="108" r="1" class="dia-fill" />
         <circle cx="150" cy="98" r="1" class="dia-fill" />
       </g>
-
       <line x1="20" y1="130" x2="160" y2="130" class="dia-stroke-thin" />
       <text x="90" y="150" class="dia-text-label">ISO 1600–6400</text>
       <text x="90" y="170" class="dia-text-muted">快门 1/60s+</text>
       <text x="90" y="190" class="dia-text-muted">光圈 f/1.8–f/4</text>
-
       <line x1="20" y1="210" x2="160" y2="210" class="dia-stroke-thin" />
       <text x="90" y="230" class="dia-text-muted">适合：街拍、旅行</text>
       <text x="90" y="250" class="dia-text-muted">方便但画质一般</text>
-
       <!-- 三脚架长曝光 -->
       <rect x="210" y="10" width="180" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="210" y="10" width="180" height="260" class="dia-fill" opacity="0.03" />
       <text x="300" y="32" class="dia-text-label">三脚架长曝光</text>
       <text x="300" y="52" class="dia-text-muted">最干净 · 光轨</text>
-
       <!-- 光滑的色块表示干净 -->
       <rect x="230" y="70" width="140" height="40" class="dia-fill" opacity="0.08" />
       <rect x="230" y="70" width="140" height="40" class="dia-stroke-thin" fill="none" />
-
       <line x1="230" y1="130" x2="370" y2="130" class="dia-stroke-thin" />
       <text x="300" y="150" class="dia-text-label">ISO 100</text>
       <text x="300" y="170" class="dia-text-muted">快门 5s–30s+</text>
       <text x="300" y="190" class="dia-text-muted">光圈 f/8–f/11</text>
-
       <line x1="230" y1="210" x2="370" y2="210" class="dia-stroke-thin" />
       <text x="300" y="230" class="dia-text-muted">适合：城市风光、桥、车流</text>
       <text x="300" y="250" class="dia-text-muted">画质最好但不方便</text>
-
       <!-- 大光圈折中 -->
       <rect x="420" y="10" width="180" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="420" y="10" width="180" height="260" class="dia-fill" opacity="0.03" />
       <text x="510" y="32" class="dia-text-label">大光圈折中</text>
       <text x="510" y="52" class="dia-text-muted">氛围 · 焦外光斑</text>
-
       <!-- 焦外光斑示意 -->
       <circle cx="450" cy="80" r="8" class="dia-fill" opacity="0.2" />
       <circle cx="490" cy="88" r="6" class="dia-fill" opacity="0.25" />
@@ -93,12 +83,10 @@ tags: ["夜景", "长曝光", "三脚架", "噪点", "城市风光"]
       <circle cx="470" cy="100" r="5" class="dia-fill" opacity="0.3" />
       <circle cx="520" cy="102" r="7" class="dia-fill" opacity="0.2" />
       <circle cx="560" cy="95" r="4" class="dia-fill" opacity="0.25" />
-
       <line x1="440" y1="130" x2="580" y2="130" class="dia-stroke-thin" />
       <text x="510" y="150" class="dia-text-label">ISO 400–800</text>
       <text x="510" y="170" class="dia-text-muted">快门 1/30–1/60s</text>
       <text x="510" y="190" class="dia-text-muted">光圈 f/1.4–f/2.0</text>
-
       <line x1="440" y1="210" x2="580" y2="210" class="dia-stroke-thin" />
       <text x="510" y="230" class="dia-text-muted">适合：夜景人像、街景</text>
       <text x="510" y="250" class="dia-text-muted">好看但焦外会糊</text>

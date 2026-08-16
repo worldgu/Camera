@@ -26,36 +26,31 @@ tags: ["相机分类", "画幅", "微单", "单反", "器材入门"]
     <g transform="translate(30, 30)">
       <rect x="0" y="0" width="330" height="248" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="0" width="330" height="248" class="dia-fill" opacity="0.06" />
-      <text x="8" y="-10" class="dia-text-muted">中画幅 44x33mm</text>
-
+      <text x="8" y="-10" class="dia-text-muted dia-text-start">中画幅 44x33mm</text>
       <rect x="0" y="46" width="252" height="168" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="46" width="252" height="168" class="dia-fill" opacity="0.1" />
-      <text x="8" y="66" class="dia-text-label">全画幅 36x24mm</text>
-
+      <text x="8" y="66" class="dia-text-label dia-text-start">全画幅 36x24mm</text>
       <rect x="0" y="46" width="166" height="110" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="46" width="166" height="110" class="dia-fill" opacity="0.16" />
-      <text x="8" y="86" class="dia-text-label">APS-C 23.5x15.6mm</text>
-
+      <text x="8" y="86" class="dia-text-label dia-text-start">APS-C 23.5x15.6mm</text>
       <rect x="0" y="46" width="126" height="94" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="46" width="126" height="94" class="dia-fill" opacity="0.22" />
-      <text x="8" y="106" class="dia-text-muted">M43</text>
-
+      <text x="8" y="106" class="dia-text-muted dia-text-start">M43</text>
       <rect x="0" y="46" width="62" height="46" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="46" width="62" height="46" class="dia-fill" opacity="0.34" />
-      <text x="8" y="126" class="dia-text-muted">1 英寸</text>
-
+      <text x="8" y="126" class="dia-text-muted dia-text-start">1 英寸</text>
       <rect x="0" y="46" width="26" height="20" class="dia-fill" opacity="0.5" />
-      <text x="8" y="146" class="dia-text-muted">手机主摄</text>
+      <text x="8" y="146" class="dia-text-muted dia-text-start">手机主摄</text>
     </g>
     <g transform="translate(400, 60)">
-      <text x="0" y="0" class="dia-text-label">面积差距</text>
-      <text x="0" y="26" class="dia-text-muted">全画幅约为 APS-C 的 2.3 倍</text>
-      <text x="0" y="48" class="dia-text-muted">APS-C 约为手机主摄的 12 倍</text>
-      <text x="0" y="70" class="dia-text-muted">面积每翻一倍</text>
-      <text x="0" y="92" class="dia-text-muted">高感与虚化优势约一档</text>
-      <text x="0" y="132" class="dia-text-label">但也别忘了</text>
-      <text x="0" y="158" class="dia-text-muted">画幅越大，镜头越贵越重</text>
-      <text x="0" y="180" class="dia-text-muted">合焦精度要求也越高</text>
+      <text x="0" y="0" class="dia-text-label dia-text-start">面积差距</text>
+      <text x="0" y="26" class="dia-text-muted dia-text-start">全画幅约为 APS-C 的 2.3 倍</text>
+      <text x="0" y="48" class="dia-text-muted dia-text-start">APS-C 约为手机主摄的 12 倍</text>
+      <text x="0" y="70" class="dia-text-muted dia-text-start">面积每翻一倍</text>
+      <text x="0" y="92" class="dia-text-muted dia-text-start">高感与虚化优势约一档</text>
+      <text x="0" y="132" class="dia-text-label dia-text-start">但也别忘了</text>
+      <text x="0" y="158" class="dia-text-muted dia-text-start">画幅越大，镜头越贵越重</text>
+      <text x="0" y="180" class="dia-text-muted dia-text-start">合焦精度要求也越高</text>
     </g>
   </svg>
   <figcaption>所有方框左上角对齐，能直接看出面积倍数关系。注意手机主摄那一小块，它靠算法拉平了很多差距，但物理面积就是这么大。</figcaption>

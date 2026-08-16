@@ -40,7 +40,6 @@ tags: ["人像", "焦段选择", "眼神光", "背景虚化", "摆姿"]
       <line x1="80" y1="150" x2="60" y2="220" class="dia-stroke-thin" />
       <line x1="80" y1="150" x2="100" y2="220" class="dia-stroke-thin" />
       <text x="80" y="235" class="dia-text-muted">全身 · 带环境</text>
-
       <!-- 50mm 半身 -->
       <rect x="200" y="0" width="160" height="240" class="dia-stroke-thin" fill="none" />
       <rect x="200" y="0" width="160" height="240" class="dia-fill" opacity="0.04" />
@@ -50,7 +49,6 @@ tags: ["人像", "焦段选择", "眼神光", "背景虚化", "摆姿"]
       <line x1="280" y1="100" x2="240" y2="140" class="dia-stroke-thin" />
       <line x1="280" y1="100" x2="320" y2="140" class="dia-stroke-thin" />
       <text x="280" y="235" class="dia-text-muted">半身 · 自然视角</text>
-
       <!-- 85mm 特写 -->
       <rect x="400" y="0" width="160" height="240" class="dia-stroke-thin" fill="none" />
       <rect x="400" y="0" width="160" height="240" class="dia-fill" opacity="0.04" />

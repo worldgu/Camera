@@ -188,6 +188,11 @@ figure.diagram svg .dia-text-invert {
   text-anchor: middle;
 }
 
+/* 按左对齐坐标书写的图解文字，叠加在上面任一 dia-text* 之后使用 */
+figure.diagram svg .dia-text-start {
+  text-anchor: start;
+}
+
 figure.diagram figcaption {
   margin-top: 12px;
   font-size: 0.85rem;

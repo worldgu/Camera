@@ -24,39 +24,35 @@ tags: ["二手", "验机", "快门数", "霉斑", "器材入门"]
 当面交易的时候按这个顺序走，从不可逆的问题查到可修的问题。
 
 <figure class="diagram">
-  <svg viewBox="0 0 620 300" role="img" aria-label="二手相机与镜头当面验机的六步顺序流程">
+  <svg viewBox="0 0 620 330" role="img" aria-label="二手相机与镜头当面验机的六步顺序流程">
     <g transform="translate(34, 26)">
       <rect x="0" y="0" width="200" height="40" class="dia-fill" opacity="0.2" />
       <rect x="0" y="0" width="200" height="40" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="26" class="dia-text-label">1 看外观与螺丝</text>
-      <text x="216" y="26" class="dia-text-muted">掉漆可接受，螺丝有划痕说明拆过</text>
-
+      <text x="14" y="26" class="dia-text-label dia-text-start">1 看外观与螺丝</text>
+      <text x="216" y="26" class="dia-text-muted dia-text-start">掉漆可接受，螺丝有划痕说明拆过</text>
       <path class="dia-stroke-thin" d="M20,40 L20,58" />
       <rect x="0" y="58" width="200" height="40" class="dia-fill" opacity="0.2" />
       <rect x="0" y="58" width="200" height="40" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="84" class="dia-text-label">2 查快门数</text>
-      <text x="216" y="84" class="dia-text-muted">用近期 RAW 读，或机内菜单查</text>
-
+      <text x="14" y="84" class="dia-text-label dia-text-start">2 查快门数</text>
+      <text x="216" y="84" class="dia-text-muted dia-text-start">用近期 RAW 读，或机内菜单查</text>
       <path class="dia-stroke-thin" d="M20,98 L20,116" />
       <rect x="0" y="116" width="200" height="40" class="dia-fill" opacity="0.2" />
       <rect x="0" y="116" width="200" height="40" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="142" class="dia-text-label">3 传感器验灰与坏点</text>
-      <text x="216" y="142" class="dia-text-muted">缩到最小光圈拍白墙，看黑点</text>
-
+      <text x="14" y="142" class="dia-text-label dia-text-start">3 传感器验灰与坏点</text>
+      <text x="216" y="142" class="dia-text-muted dia-text-start">缩到最小光圈拍白墙，看黑点</text>
       <path class="dia-stroke-thin" d="M20,156 L20,174" />
       <rect x="0" y="174" width="200" height="40" class="dia-fill" opacity="0.2" />
       <rect x="0" y="174" width="200" height="40" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="200" class="dia-text-label">4 镜头对光查霉与灰</text>
-      <text x="216" y="200" class="dia-text-muted">手电从前后打光，找絮状白丝</text>
-
+      <text x="14" y="200" class="dia-text-label dia-text-start">4 镜头对光查霉与灰</text>
+      <text x="216" y="200" class="dia-text-muted dia-text-start">手电从前后打光，找絮状白丝</text>
       <path class="dia-stroke-thin" d="M20,214 L20,232" />
       <rect x="0" y="232" width="200" height="40" class="dia-fill" opacity="0.2" />
       <rect x="0" y="232" width="200" height="40" class="dia-stroke-thin" fill="none" />
-      <text x="14" y="258" class="dia-text-label">5 试对焦与光圈</text>
-      <text x="216" y="258" class="dia-text-muted">全焦段拉一遍，听有无异响</text>
+      <text x="14" y="258" class="dia-text-label dia-text-start">5 试对焦与光圈</text>
+      <text x="216" y="258" class="dia-text-muted dia-text-start">全焦段拉一遍，听有无异响</text>
     </g>
-    <g transform="translate(34, 296)">
-      <text x="0" y="-4" class="dia-text-muted">最后一步：装卡实拍二十张，回放放大逐张看，再谈价。</text>
+    <g transform="translate(34, 314)">
+      <text x="0" y="0" class="dia-text-muted dia-text-start">最后一步：装卡实拍二十张，回放放大逐张看，再谈价。</text>
     </g>
   </svg>
   <figcaption>前两步查的是不可逆的硬伤，后面几步查的是能修但要花钱的问题。任何一步存疑就直接换下一件，别为了跑一趟不亏而勉强成交。</figcaption>

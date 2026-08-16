@@ -56,58 +56,43 @@ tags: ["运动抓拍", "追焦", "连拍", "快门优先", "预判"]
       <rect x="0" y="10" width="270" height="260" class="dia-fill" opacity="0.03" />
       <text x="135" y="32" class="dia-text-label">追焦法（跟拍）</text>
       <text x="135" y="52" class="dia-text-muted">主体在哪里，镜头就跟到哪里</text>
-
-      <g transform="translate(40, 70)">
-        <circle cx="0" cy="20" r="6" class="dia-fill" />
-        <text x="20" y="24" class="dia-text-muted">1. 发现主体</text>
-
+      <g transform="translate(135, 70)">
+        <circle cx="-42" cy="20" r="6" class="dia-fill" />
+        <text x="-30" y="24" class="dia-text-muted dia-text-start">1. 发现主体</text>
         <line x1="0" y1="35" x2="0" y2="55" class="dia-stroke-thin" />
         <polygon points="0,55 -4,48 4,48" class="dia-fill" />
-
         <rect x="-30" y="60" width="60" height="24" class="dia-stroke-thin" fill="none" />
         <text x="0" y="76" class="dia-text-muted">半按快门</text>
         <text x="0" y="88" class="dia-text-muted">启动连续对焦</text>
-
         <line x1="0" y1="95" x2="0" y2="115" class="dia-stroke-thin" />
         <polygon points="0,115 -4,108 4,108" class="dia-fill" />
-
-        <rect x="-40" y="120" width="80" height="36" class="dia-stroke-thin" fill="none" />
+        <rect x="-60" y="120" width="120" height="36" class="dia-stroke-thin" fill="none" />
         <text x="0" y="136" class="dia-text-muted">镜头跟着主体移动</text>
         <text x="0" y="150" class="dia-text-muted">保持在取景框里</text>
-
         <line x1="0" y1="165" x2="0" y2="185" class="dia-stroke-thin" />
         <polygon points="0,185 -4,178 4,178" class="dia-fill" />
-
         <rect x="-30" y="190" width="60" height="24" class="dia-stroke" fill="none" />
         <text x="0" y="206" class="dia-text-label">连拍 + 跟摇</text>
       </g>
-
       <!-- 陷阱对焦 -->
       <rect x="340" y="10" width="270" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="340" y="10" width="270" height="260" class="dia-fill" opacity="0.03" />
       <text x="475" y="32" class="dia-text-label">陷阱对焦（等拍）</text>
       <text x="475" y="52" class="dia-text-muted">提前对好焦，等主体进来</text>
-
       <g transform="translate(475, 70)">
-        <text x="0" y="24" class="dia-text-muted">1. 预判路线</text>
-        <circle cx="-20" cy="20" r="6" class="dia-stroke-thin" fill="none" />
-
+        <circle cx="-42" cy="20" r="6" class="dia-stroke-thin" fill="none" />
+        <text x="-30" y="24" class="dia-text-muted dia-text-start">1. 预判路线</text>
         <line x1="0" y1="35" x2="0" y2="55" class="dia-stroke-thin" />
         <polygon points="0,55 -4,48 4,48" class="dia-fill" />
-
         <rect x="-40" y="60" width="80" height="24" class="dia-stroke-thin" fill="none" />
         <text x="0" y="76" class="dia-text-muted">手动对焦到位</text>
-
         <line x1="0" y1="95" x2="0" y2="115" class="dia-stroke-thin" />
         <polygon points="0,115 -4,108 4,108" class="dia-fill" />
-
         <rect x="-40" y="120" width="80" height="36" class="dia-stroke-thin" fill="none" />
         <text x="0" y="136" class="dia-text-muted">等待主体进入</text>
         <text x="0" y="150" class="dia-text-muted">（陷阱位置）</text>
-
         <line x1="0" y1="165" x2="0" y2="185" class="dia-stroke-thin" />
         <polygon points="0,185 -4,178 4,178" class="dia-fill" />
-
         <rect x="-30" y="190" width="60" height="24" class="dia-stroke" fill="none" />
         <text x="0" y="206" class="dia-text-label">瞬间按快门</text>
       </g>

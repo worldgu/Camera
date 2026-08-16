@@ -31,7 +31,6 @@ tags: ["静物", "布光", "产品摄影", "美食", "构图角度"]
   <svg viewBox="0 0 620 300" role="img" aria-label="静物三种布光方式俯视示意图">
     <g transform="translate(30, 20)">
       <!-- 桌子三个示例区域 -->
-
       <!-- 侧光 -->
       <rect x="0" y="10" width="180" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="0" y="10" width="180" height="260" class="dia-fill" opacity="0.03" />
@@ -45,7 +44,6 @@ tags: ["静物", "布光", "产品摄影", "美食", "构图角度"]
       <line x1="10" y1="210" x2="60" y2="210" class="dia-stroke" />
       <polygon points="0,210 10,204 10,216" class="dia-fill" />
       <text x="90" y="275" class="dia-text-muted">立体感最强</text>
-
       <!-- 侧逆光 -->
       <rect x="210" y="10" width="180" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="210" y="10" width="180" height="260" class="dia-fill" opacity="0.03" />
@@ -59,7 +57,6 @@ tags: ["静物", "布光", "产品摄影", "美食", "构图角度"]
       <line x1="220" y1="120" x2="270" y2="190" class="dia-stroke" />
       <polygon points="215,115 225,115 220,130" class="dia-fill" />
       <text x="300" y="275" class="dia-text-muted">通透 · 轮廓边</text>
-
       <!-- 柔光 + 补光 -->
       <rect x="420" y="10" width="180" height="260" class="dia-stroke-thin" fill="none" />
       <rect x="420" y="10" width="180" height="260" class="dia-fill" opacity="0.03" />

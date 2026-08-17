@@ -530,6 +530,49 @@ figure.diagram figcaption {
   letter-spacing: 0.05em;
 }
 
+/* ---------- 实验室占位（实验尚未接入时的骨架呈现） ---------- */
+.lab-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 64px 24px;
+  text-align: center;
+  color: var(--fg-secondary);
+}
+
+.lab-placeholder__icon {
+  width: 64px;
+  height: 64px;
+  color: var(--fg-muted);
+}
+
+.lab-placeholder__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.lab-placeholder h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  margin: 0;
+}
+
+.lab-placeholder p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.lab-placeholder__hint {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 768px) {
   .home-grid {

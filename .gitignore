@@ -7,3 +7,8 @@ astro-dev.log
 astro-dev-err.log
 output/
 *.env
+
+# 本地验证辅助脚本（含硬编码的本机路径，不进仓库）
+scripts/dev-preview.ps1
+scripts/verify-sim.mjs
+sim*.png

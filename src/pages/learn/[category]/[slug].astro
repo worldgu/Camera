@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { slugOf } from '../../../utils/slug';
 import { categoryLabels } from '../../../data/categories';
+import { labEntryFor, labHref } from '../../../data/labEntries';
 
 export async function getStaticPaths() {
   const posts = await getCollection('learn');
@@ -30,6 +31,9 @@ const prevPost = currentIndex > 0 ? sameCategory[currentIndex - 1] : null;
 const nextPost = currentIndex < sameCategory.length - 1 ? sameCategory[currentIndex + 1] : null;
 
 const categoryLabel = categoryLabels[post.data.category] || post.data.category;
+
+// 「去实验室试试」入口：只有需求 10.6 指定的文章才有，参数随文章主题预设
+const labEntry = labEntryFor(post.data.category, slugOf(post));
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
@@ -56,6 +60,18 @@ const categoryLabel = categoryLabels[post.data.category] || post.data.category;
         <div class="article__content">
           <Content />
         </div>
+
+        {labEntry && (
+          <aside class="lab-cta">
+            <div class="lab-cta__text">
+              <h3 class="lab-cta__title">{labEntry.title}</h3>
+              <p class="lab-cta__desc">{labEntry.text}</p>
+            </div>
+            <a href={labHref(base, labEntry)} class="lab-cta__btn">
+              {labEntry.action} →
+            </a>
+          </aside>
+        )}
 
         <div class="article__tags">
           {post.data.tags.map((tag) => (
@@ -277,6 +293,48 @@ const categoryLabel = categoryLabels[post.data.category] || post.data.category;
   margin-bottom: 40px;
 }
 
+/* 去实验室试试（需求 10.6 的教程 → 实验室入口） */
+.lab-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  border: 1px solid var(--fg);
+  background: var(--bg-secondary);
+}
+
+.lab-cta__title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.lab-cta__desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.lab-cta__btn {
+  flex-shrink: 0;
+  padding: 10px 22px;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  color: var(--bg);
+  background: var(--fg);
+  border: 1px solid var(--fg);
+  transition: opacity var(--transition);
+}
+
+.lab-cta__btn:hover {
+  opacity: 0.82;
+}
+
 .tag {
   display: inline-block;
   padding: 4px 12px;
@@ -396,6 +454,17 @@ const categoryLabel = categoryLabels[post.data.category] || post.data.category;
 
   .share-buttons {
     flex-direction: column;
+  }
+
+  .lab-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .lab-cta__btn {
+    align-self: stretch;
+    text-align: center;
   }
 }
 </style>

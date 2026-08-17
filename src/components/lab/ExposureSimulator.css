@@ -1,0 +1,229 @@
+/* ---------- 曝光模拟器 ---------- */
+.sim {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 32px;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 24px;
+  align-items: start;
+}
+
+/* 预览区 */
+.sim__preview {
+  min-width: 0;
+}
+
+.sim__canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.sim__readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--fg-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.sim__ev {
+  margin-left: auto;
+}
+
+.sim__ev--ok {
+  color: var(--fg-secondary);
+}
+
+.sim__ev--warn {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+/* 直方图 */
+.histogram {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  padding: 10px 12px 8px;
+}
+
+.histogram__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+  margin-bottom: 6px;
+}
+
+.histogram__chart {
+  display: block;
+  width: 100%;
+  height: 56px;
+}
+
+.histogram__bar {
+  fill: var(--fg-secondary);
+}
+
+/* 控制面板 */
+.sim__panel {
+  min-width: 0;
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+
+.sim__scenes {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.sim__scene {
+  background: none;
+  border: none;
+  border-right: 1px solid var(--border);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 7px 14px;
+  transition: all var(--transition);
+}
+
+.sim__scene:last-child {
+  border-right: none;
+}
+
+.sim__scene:hover {
+  color: var(--fg);
+}
+
+.sim__scene.is-active {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.sim__hint {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin: 0 0 20px;
+}
+
+.sim__hint--sub {
+  margin: 8px 0 20px;
+}
+
+/* 拨轮 */
+.dial {
+  margin-bottom: 18px;
+}
+
+.dial__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.dial__label {
+  font-size: 0.85rem;
+  color: var(--fg);
+}
+
+.dial__sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.dial__body {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  align-items: stretch;
+  border: 1px solid var(--border);
+}
+
+.dial__btn {
+  background: none;
+  border: none;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 9px 0;
+  transition: all var(--transition);
+}
+
+.dial__btn:hover:not(:disabled) {
+  background: var(--bg-secondary);
+  color: var(--fg);
+}
+
+.dial__btn:disabled {
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+.dial__value {
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  padding: 9px 4px;
+  text-align: center;
+  color: var(--fg);
+}
+
+/* 自动曝光 */
+.sim__auto {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.sim__auto input {
+  accent-color: var(--fg);
+}
+
+.sim__reset {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  transition: all var(--transition);
+  width: 100%;
+}
+
+.sim__reset:hover {
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+@media (max-width: 900px) {
+  .sim {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 24px 16px;
+  }
+
+  .sim__ev {
+    margin-left: 0;
+  }
+}

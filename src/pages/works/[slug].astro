@@ -34,7 +34,7 @@ const categoryLabels: Record<string, string> = {
   <div class="photo-page">
     {work.image ? (
       <div class="photo-page__image photo-page__image--photo">
-        <img src={work.image} alt={work.title} />
+        <img src={`${base}${work.image}`} alt={work.title} />
       </div>
     ) : (
       <div class="photo-page__image" style={{ background: work.color }}>

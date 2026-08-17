@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const experiments = [
+  {
+    title: '相机模型',
+    subtitle: 'Camera Model',
+    description: '360° 观察 Sony A7C2 的每一个细节，\n认识按键、拨轮与接口。',
+    icon: 'camera',
+    href: `${base}/lab/camera/`,
+    status: '开发中',
+  },
+  {
+    title: '曝光模拟器',
+    subtitle: 'Exposure Simulator',
+    description: '亲手调节光圈、快门、ISO，\n直观理解曝光三要素如何工作。',
+    icon: 'sliders',
+    href: `${base}/lab/simulator/`,
+    status: '开发中',
+  },
+];
+---
+
+<BaseLayout title="实验室" description="交互式摄影学习工具 — 动手学摄影">
+  <div class="page-wrap">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">实 验 室</h1>
+        <p class="page-subtitle">动手调一调，比读十遍都明白</p>
+      </header>
+
+      <div class="lab-intro">
+        <p>
+          教程讲的是原理，实验室让你亲手试。
+          <br />
+          调一调参数，转一转相机，很多原本模糊的概念，一下子就清楚了。
+        </p>
+      </div>
+
+      <div class="lab-cards">
+        {experiments.map((exp) => (
+          <a href={exp.href} class="lab-card">
+            <div class="lab-card__badge">{exp.status}</div>
+            <div class="lab-card__icon">
+              {exp.icon === 'camera' && (
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+                  <path d="M10 14h8l3-4h14l3 4h10v24H4V14h6z" />
+                  <circle cx="24" cy="26" r="8" />
+                  <circle cx="24" cy="26" r="4" />
+                  <circle cx="38" cy="18" r="1.5" fill="currentColor" />
+                </svg>
+              )}
+              {exp.icon === 'sliders' && (
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+                  <line x1="10" y1="12" x2="10" y2="36" />
+                  <line x1="24" y1="8" x2="24" y2="40" />
+                  <line x1="38" y1="16" x2="38" y2="32" />
+                  <circle cx="10" cy="20" r="3" fill="currentColor" />
+                  <circle cx="24" cy="28" r="3" fill="currentColor" />
+                  <circle cx="38" cy="24" r="3" fill="currentColor" />
+                </svg>
+              )}
+            </div>
+            <div class="lab-card__content">
+              <h2 class="lab-card__title">{exp.title}</h2>
+              <p class="lab-card__subtitle">{exp.subtitle}</p>
+              <p class="lab-card__desc">
+                {exp.description.split('\n').map((line, i) => (
+                  <>
+                    {line}
+                    {i < exp.description.split('\n').length - 1 && <br />}
+                  </>
+                ))}
+              </p>
+              <span class="lab-card__more">进入实验 →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.lab-intro {
+  max-width: 600px;
+  margin: 0 auto 60px;
+  text-align: center;
+  color: var(--fg-secondary);
+  line-height: 2;
+  font-size: 0.95rem;
+}
+
+.lab-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto 100px;
+}
+
+.lab-card {
+  position: relative;
+  display: block;
+  padding: 56px 40px 48px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  transition: all var(--transition);
+}
+
+.lab-card:hover {
+  border-color: var(--fg);
+  transform: translateY(-3px);
+  opacity: 1;
+}
+
+.lab-card__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+}
+
+.lab-card__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 32px;
+  color: var(--fg);
+}
+
+.lab-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.lab-card__content {
+  text-align: center;
+}
+
+.lab-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.lab-card__subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.lab-card__desc {
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.lab-card__more {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+}
+
+@media (max-width: 768px) {
+  .lab-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .lab-card {
+    padding: 40px 24px 32px;
+  }
+
+  .lab-card__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+  }
+
+  .lab-card__title {
+    font-size: 1.5rem;
+  }
+}
+</style>

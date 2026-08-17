@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExposureSimulator from '../../../components/lab/ExposureSimulator.tsx';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const relatedTutorials = [
+  { title: '光圈', href: `${base}/learn/basics/aperture/` },
+  { title: '快门速度', href: `${base}/learn/basics/shutter-speed/` },
+  { title: 'ISO', href: `${base}/learn/basics/iso/` },
+  { title: '曝光补偿', href: `${base}/learn/basics/exposure-compensation/` },
+];
+---
+
+<BaseLayout title="曝光模拟器 · 实验室" description="亲手调节光圈、快门、ISO，直观理解曝光三要素">
+  <div class="page-wrap">
+    <div class="container">
+      <nav class="lab-breadcrumb">
+        <a href={`${base}/lab/`}>← 返回实验室</a>
+      </nav>
+
+      <header class="lab-header">
+        <h1 class="lab-title">曝光模拟器</h1>
+        <p class="lab-subtitle">Exposure Simulator</p>
+        <p class="lab-description">
+          调一调光圈、快门、ISO，看着画面实时变化。
+          不用真相机，也能搞懂曝光三要素怎么回事。
+        </p>
+      </header>
+    </div>
+
+    <section class="lab-stage">
+      <ExposureSimulator client:load />
+    </section>
+
+    <div class="container">
+      <section class="lab-related">
+        <h2 class="lab-related__title">相 关 教 程</h2>
+        <div class="lab-related__list">
+          {relatedTutorials.map((t) => (
+            <a href={t.href} class="lab-related__item">
+              {t.title} →
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.lab-breadcrumb {
+  padding: 24px 0 0;
+  font-size: 0.85rem;
+  color: var(--fg-secondary);
+}
+
+.lab-breadcrumb a:hover {
+  color: var(--fg);
+}
+
+.lab-header {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+
+.lab-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.lab-subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.lab-description {
+  max-width: 500px;
+  margin: 0 auto;
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
+.lab-stage {
+  width: 100%;
+  min-height: 60vh;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.lab-related {
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.lab-related__title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+  color: var(--fg-secondary);
+}
+
+.lab-related__list {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.lab-related__item {
+  font-size: 0.9rem;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.lab-related__item:hover {
+  border-color: var(--fg);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .lab-title {
+    font-size: 1.6rem;
+  }
+
+  .lab-stage {
+    min-height: 50vh;
+  }
+}
+</style>

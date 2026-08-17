@@ -230,7 +230,7 @@ export default function WorksGallery({ works, base }: Props) {
                   aria-label={work.image ? work.title : undefined}
                   style={{
                     background: work.image ? undefined : work.color,
-                    backgroundImage: work.image ? `url('${work.image}')` : undefined,
+                    backgroundImage: work.image ? `url('${base}${work.image}')` : undefined,
                     backgroundSize: work.image ? 'cover' : undefined,
                     backgroundPosition: work.image ? 'center' : undefined,
                     aspectRatio: `${work.aspectRatio}`,
@@ -284,7 +284,7 @@ export default function WorksGallery({ works, base }: Props) {
                         aria-label={work.image ? work.title : undefined}
                         style={{
                           background: work.image ? undefined : work.color,
-                          backgroundImage: work.image ? `url('${work.image}')` : undefined,
+                          backgroundImage: work.image ? `url('${base}${work.image}')` : undefined,
                           backgroundSize: work.image ? 'cover' : undefined,
                           backgroundPosition: work.image ? 'center' : undefined,
                           aspectRatio: '1 / 1',
@@ -333,7 +333,7 @@ export default function WorksGallery({ works, base }: Props) {
           <div className="lightbox__content" onClick={(e) => e.stopPropagation()}>
             {currentWork.image ? (
               <div className="lightbox__image lightbox__image--photo">
-                <img src={currentWork.image} alt={currentWork.title} />
+                <img src={`${base}${currentWork.image}`} alt={currentWork.title} />
               </div>
             ) : (
               <div

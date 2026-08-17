@@ -37,7 +37,7 @@ const latestWorks = [...worksData]
               class="home-preview__img"
               style={
                 work.image
-                  ? `background-image: url('${work.image}'); background-size: cover; background-position: center;`
+                  ? `background-image: url('${base}${work.image}'); background-size: cover; background-position: center;`
                   : `background: ${work.color}`
               }
             ></div>

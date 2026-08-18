@@ -1,0 +1,288 @@
+/* ---------- 相机模型（/lab/camera） ---------- */
+
+/*
+ * 布局：3D 画布铺满舞台，控件以浮层形式压在画布上。
+ * 尺寸用 aspect-ratio + max-height 固定，避免 canvas 尺寸随
+ * 浮层内容（部件数量、说明长度）反过来撑动容器造成抖动。
+ */
+.camera-model {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  aspect-ratio: 16 / 10;
+  max-height: 68vh;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+.camera-model__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.camera-model__canvas:active {
+  cursor: grabbing;
+}
+
+/* ---------- 加载态 ---------- */
+.camera-model__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--bg-secondary);
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+.camera-model__loading-ring {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--border);
+  border-top-color: var(--fg-secondary);
+  border-radius: 50%;
+  animation: camera-model-spin 0.9s linear infinite;
+}
+
+@keyframes camera-model-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- 视角切换 ---------- */
+.camera-model__views {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  background: var(--overlay-bg);
+  backdrop-filter: blur(8px);
+}
+
+.camera-model__view {
+  background: none;
+  border: none;
+  border-right: 1px solid var(--border);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 7px 13px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.camera-model__view:last-child {
+  border-right: none;
+}
+
+.camera-model__view:hover {
+  color: var(--fg);
+}
+
+.camera-model__view.is-active {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ---------- 部件列表 ---------- */
+.camera-model__parts {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 168px;
+  max-height: calc(100% - 32px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  background: var(--overlay-bg);
+  backdrop-filter: blur(8px);
+}
+
+.camera-model__parts-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.camera-model__parts-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--fg-secondary);
+}
+
+.camera-model__parts-count {
+  font-size: 0.68rem;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.camera-model__parts-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+}
+
+.camera-model__part-btn {
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  text-align: left;
+  width: 100%;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.camera-model__part-btn:hover,
+.camera-model__part-btn.is-hover {
+  color: var(--fg);
+  border-left-color: var(--border);
+}
+
+.camera-model__part-btn.is-active {
+  color: var(--fg);
+  border-left-color: var(--fg);
+}
+
+/* ---------- 部件说明浮层 ---------- */
+.camera-model__info {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  width: min(320px, calc(100% - 32px));
+  border: 1px solid var(--border);
+  background: var(--overlay-bg);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+  padding: 16px 18px 18px;
+}
+
+.camera-model__info-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--fg-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 4px;
+  transition: color var(--transition);
+}
+
+.camera-model__info-close:hover {
+  color: var(--fg);
+}
+
+.camera-model__info-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0 0 8px;
+  padding-right: 20px;
+  color: var(--fg);
+}
+
+.camera-model__info-desc {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.camera-model__info-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: border-color var(--transition);
+}
+
+.camera-model__info-link:hover {
+  border-bottom-color: var(--fg);
+}
+
+/* ---------- 窄屏 ---------- */
+@media (max-width: 760px) {
+  .camera-model {
+    aspect-ratio: 4 / 5;
+    max-height: none;
+  }
+
+  .camera-model__views {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .camera-model__view {
+    flex: 1 0 auto;
+    font-size: 0.74rem;
+    padding: 6px 10px;
+  }
+
+  /* 窄屏把部件列表压到底部横排，给画布留出中间的观察区域 */
+  .camera-model__parts {
+    top: auto;
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
+    max-height: 132px;
+  }
+
+  .camera-model__parts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 6px 8px;
+  }
+
+  .camera-model__part-btn {
+    border: 1px solid var(--border);
+    border-left-width: 1px;
+    padding: 5px 9px;
+    width: auto;
+  }
+
+  .camera-model__part-btn.is-active {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  /* 说明浮层与部件列表都在底部：选中部件时收起列表，避免两层叠在一起 */
+  .camera-model__parts.is-collapsed {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .camera-model__info {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+}

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import CameraModel from '../../../components/lab/CameraModel.tsx';
+import '../../../components/lab/CameraModel.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -28,7 +29,7 @@ const relatedTutorials = [
     </div>
 
     <section class="lab-stage">
-      <CameraModel client:load />
+      <CameraModel base={base} client:load />
     </section>
 
     <div class="container">

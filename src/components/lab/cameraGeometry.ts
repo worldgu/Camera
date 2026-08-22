@@ -41,6 +41,20 @@ export function buildCamera(
   const group = new THREE.Group();
   const interactive = new Map<string, THREE.Object3D>();
 
+  /**
+   * 把一个部件的所有可见表面收进独立 group 再登记。
+   * 拾取只认最前面的命中点（见 CameraModel 的 getPartIdFromEvent），
+   * 所以像镜头卡口这种被镜身挡住的部件，必须把遮挡它的 mesh 一并归进来，
+   * 否则点上去会命中一个没有 partId 的 mesh 而落空。
+   */
+  const addPart = (id: string, meshes: THREE.Object3D[]) => {
+    const partGroup = new THREE.Group();
+    partGroup.name = id;
+    meshes.forEach((m) => partGroup.add(m));
+    group.add(partGroup);
+    interactive.set(id, partGroup);
+  };
+
   // ---------- 通用材质 ----------
   const bodyMat = new THREE.MeshStandardMaterial({
     color: palette.body,
@@ -114,12 +128,10 @@ export function buildCamera(
   );
   evfEyepiece.rotation.x = Math.PI / 2;
   evfEyepiece.position.set(-2.6, 3.8, -2.4);
-  group.add(evfEyepiece);
   const evfGlass = new THREE.Mesh(new THREE.CircleGeometry(0.4, 24), screenMat);
   evfGlass.position.set(-2.6, 3.8, -2.24);
   evfGlass.rotation.y = Math.PI;
-  group.add(evfGlass);
-  interactive.set('evf', evfEyepiece);
+  addPart('evf', [evfEyepiece, evfGlass]);
 
   // ---------- 握柄（右侧） ----------
   const grip = new THREE.Mesh(new THREE.BoxGeometry(1.6, 5.6, 3.8), gripMat);
@@ -144,7 +156,6 @@ export function buildCamera(
   );
   mountOuter.rotation.x = Math.PI / 2;
   mountOuter.position.set(0, 0.1, 2.2);
-  group.add(mountOuter);
 
   const mountInner = new THREE.Mesh(
     new THREE.CylinderGeometry(2.1, 2.1, 0.32, 36),
@@ -166,14 +177,13 @@ export function buildCamera(
   );
   lensStub.rotation.x = Math.PI / 2;
   lensStub.position.set(0, 0.1, 3.2);
-  group.add(lensStub);
 
   const lensFront = new THREE.Mesh(new THREE.CircleGeometry(1.5, 32), screenMat);
   lensFront.position.set(0, 0.1, 4.0);
   lensFront.rotation.y = Math.PI;
-  group.add(lensFront);
 
-  interactive.set('lens-mount', mountOuter);
+  // 镜身完全遮住卡口环，不把它归进同一部件的话正面点镜头会落空
+  addPart('lens-mount', [mountOuter, lensStub, lensFront]);
 
   // ---------- 机顶：模式转盘 ----------
   const modeDial = new THREE.Mesh(
@@ -181,16 +191,15 @@ export function buildCamera(
     dialMat,
   );
   modeDial.position.set(3.8, 3.6, 0.8);
-  group.add(modeDial);
 
   const modeDialTop = new THREE.Mesh(
     new THREE.CylinderGeometry(1.0, 1.0, 0.12, 24),
     dialTopMat,
   );
   modeDialTop.position.set(3.8, 3.9, 0.8);
-  group.add(modeDialTop);
 
   // 模式转盘刻度（一圈小点）
+  const modeDots: THREE.Object3D[] = [];
   for (let i = 0; i < 8; i++) {
     const angle = (i / 8) * Math.PI * 2;
     const dot = new THREE.Mesh(
@@ -202,9 +211,9 @@ export function buildCamera(
       4.0,
       0.8 + Math.sin(angle) * 0.75,
     );
-    group.add(dot);
+    modeDots.push(dot);
   }
-  interactive.set('mode-dial', modeDialTop);
+  addPart('mode-dial', [modeDial, modeDialTop, ...modeDots]);
 
   // ---------- 机顶：曝光补偿转盘 ----------
   const expDial = new THREE.Mesh(
@@ -212,15 +221,13 @@ export function buildCamera(
     dialMat,
   );
   expDial.position.set(3.8, 3.5, -0.8);
-  group.add(expDial);
 
   const expDialTop = new THREE.Mesh(
     new THREE.CylinderGeometry(0.7, 0.7, 0.1, 24),
     dialTopMat,
   );
   expDialTop.position.set(3.8, 3.7, -0.8);
-  group.add(expDialTop);
-  interactive.set('exposure-comp-dial', expDialTop);
+  addPart('exposure-comp-dial', [expDial, expDialTop]);
 
   // ---------- 机顶：快门按钮 ----------
   const shutterBase = new THREE.Mesh(
@@ -228,33 +235,28 @@ export function buildCamera(
     dialMat,
   );
   shutterBase.position.set(6.8, 3.6, 0.6);
-  group.add(shutterBase);
 
   const shutterBtn = new THREE.Mesh(
     new THREE.CylinderGeometry(0.45, 0.45, 0.2, 16),
     dialTopMat,
   );
   shutterBtn.position.set(6.8, 3.85, 0.6);
-  group.add(shutterBtn);
 
   const shutterDot = new THREE.Mesh(new THREE.CircleGeometry(0.1, 12), accentMat);
   shutterDot.position.set(6.8, 3.95, 0.6);
   shutterDot.rotation.x = -Math.PI / 2;
-  group.add(shutterDot);
-  interactive.set('shutter-button', shutterBtn);
+  addPart('shutter-button', [shutterBase, shutterBtn, shutterDot]);
 
   // ---------- 机顶：热靴 ----------
   const shoe = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.25, 0.7), dialMat);
   shoe.position.set(0, 3.55, 0);
-  group.add(shoe);
 
   const shoeInner = new THREE.Mesh(
     new THREE.BoxGeometry(1.6, 0.12, 0.4),
     bodyMat,
   );
   shoeInner.position.set(0, 3.62, 0);
-  group.add(shoeInner);
-  interactive.set('hot-shoe', shoe);
+  addPart('hot-shoe', [shoe, shoeInner]);
 
   // ---------- 机顶：C1 / C2 自定义键 ----------
   const c1Btn = new THREE.Mesh(
@@ -262,19 +264,14 @@ export function buildCamera(
     dialMat,
   );
   c1Btn.position.set(-1.8, 3.55, -1.0);
-  group.add(c1Btn);
 
   const c2Btn = new THREE.Mesh(
     new THREE.CylinderGeometry(0.28, 0.3, 0.15, 16),
     dialMat,
   );
   c2Btn.position.set(-1.8, 3.55, 0.6);
-  group.add(c2Btn);
   // 两颗自定义键共用一个交互部件
-  const customGroup = new THREE.Group();
-  customGroup.add(c1Btn);
-  customGroup.add(c2Btn);
-  interactive.set('custom-button', customGroup);
+  addPart('custom-button', [c1Btn, c2Btn]);
 
   // ---------- 机顶：录像按钮 ----------
   const recordBtn = new THREE.Mesh(
@@ -282,8 +279,7 @@ export function buildCamera(
     accentMat,
   );
   recordBtn.position.set(5.5, 3.55, -1.0);
-  group.add(recordBtn);
-  interactive.set('record-button', recordBtn);
+  addPart('record-button', [recordBtn]);
 
   // ---------- 正面：前拨轮 ----------
   const frontDial = new THREE.Mesh(
@@ -292,8 +288,7 @@ export function buildCamera(
   );
   frontDial.rotation.z = Math.PI / 2;
   frontDial.position.set(5.2, 0.6, 2.5);
-  group.add(frontDial);
-  interactive.set('front-dial', frontDial);
+  addPart('front-dial', [frontDial]);
 
   // ---------- 背面：翻转屏 ----------
   const screenFrame = new THREE.Mesh(
@@ -301,7 +296,6 @@ export function buildCamera(
     bodyMat,
   );
   screenFrame.position.set(0.6, 0.2, -2.2);
-  group.add(screenFrame);
 
   const screen = new THREE.Mesh(
     new THREE.PlaneGeometry(4.6, 3.0),
@@ -309,8 +303,7 @@ export function buildCamera(
   );
   screen.position.set(0.6, 0.2, -2.34);
   screen.rotation.y = Math.PI;
-  group.add(screen);
-  interactive.set('flip-screen', screen);
+  addPart('flip-screen', [screenFrame, screen]);
 
   // ---------- 背面：后拨轮 ----------
   const rearDial = new THREE.Mesh(
@@ -319,7 +312,6 @@ export function buildCamera(
   );
   rearDial.rotation.x = Math.PI / 2;
   rearDial.position.set(5.0, 1.6, -2.2);
-  group.add(rearDial);
 
   const rearDialTop = new THREE.Mesh(
     new THREE.CylinderGeometry(0.6, 0.6, 0.1, 24),
@@ -327,8 +319,7 @@ export function buildCamera(
   );
   rearDialTop.rotation.x = Math.PI / 2;
   rearDialTop.position.set(5.0, 1.6, -2.32);
-  group.add(rearDialTop);
-  interactive.set('rear-dial', rearDial);
+  addPart('rear-dial', [rearDial, rearDialTop]);
 
   // ---------- 背面：多功能摇杆 ----------
   const wheelBase = new THREE.Mesh(
@@ -337,7 +328,6 @@ export function buildCamera(
   );
   wheelBase.rotation.x = Math.PI / 2;
   wheelBase.position.set(4.2, -0.4, -2.2);
-  group.add(wheelBase);
 
   const stick = new THREE.Mesh(
     new THREE.CylinderGeometry(0.18, 0.2, 0.4, 12),
@@ -345,8 +335,7 @@ export function buildCamera(
   );
   stick.rotation.x = Math.PI / 2;
   stick.position.set(4.2, -0.4, -2.4);
-  group.add(stick);
-  interactive.set('control-wheel', wheelBase);
+  addPart('control-wheel', [wheelBase, stick]);
 
   // ---------- 底部：电池仓 ----------
   const batteryDoor = new THREE.Mesh(
@@ -354,7 +343,6 @@ export function buildCamera(
     dialMat,
   );
   batteryDoor.position.set(2.5, -3.38, 0);
-  group.add(batteryDoor);
 
   // 电池仓缝隙
   const batteryGap = new THREE.Mesh(
@@ -363,7 +351,7 @@ export function buildCamera(
   );
   batteryGap.position.set(2.5, -3.28, 0);
   group.add(batteryGap);
-  interactive.set('battery-compartment', batteryDoor);
+  addPart('battery-compartment', [batteryDoor]);
 
   // ---------- 左侧：存储卡仓 ----------
   const cardDoor = new THREE.Mesh(
@@ -371,8 +359,7 @@ export function buildCamera(
     dialMat,
   );
   cardDoor.position.set(-5.9, -0.6, 0.8);
-  group.add(cardDoor);
-  interactive.set('card-slot', cardDoor);
+  addPart('card-slot', [cardDoor]);
 
   // 给所有交互部件打上 partId 标记（含组内子 mesh）。
   // 材质必须逐个 clone：上面的 dialTopMat / mountMat 等是多个部件共用的，

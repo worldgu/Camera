@@ -12,3 +12,7 @@ output/
 scripts/dev-preview.ps1
 scripts/verify-sim.mjs
 sim*.png
+
+# 本地验证截图与抓取的参考资料
+work/
+work_*.txt

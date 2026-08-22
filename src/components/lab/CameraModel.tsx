@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { buildCamera, readCameraPalette, type BuiltCamera } from './cameraGeometry';
 import { VIEWS, DEFAULT_VIEW_ID, type CameraView } from './cameraViews';
-import { PARTS, partById, type CameraPart } from './cameraParts';
+import { PARTS, PART_GROUPS, partById, type CameraPart } from './cameraParts';
 
 interface Props {
   base: string;
+}
+
+/** 屏幕空间的部件热点，用于在画布上标出可点位置 */
+interface Hotspot {
+  id: string;
+  label: string;
+  /** 百分比坐标，直接喂给 CSS left/top */
+  x: number;
+  y: number;
 }
 
 /**
@@ -25,6 +34,9 @@ export default function CameraModel({ base }: Props) {
   const [selectedPartId, setSelectedPartId] = useState<string | null>(null);
   const [hoverPartId, setHoverPartId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [hotspots, setHotspots] = useState<Hotspot[]>([]);
+  const [showHotspots, setShowHotspots] = useState(true);
+  const [autoRotate, setAutoRotate] = useState(true);
 
   /**
    * 由 Three.js 初始化后填入的高亮更新函数。
@@ -44,11 +56,23 @@ export default function CameraModel({ base }: Props) {
     cameraGroup: BuiltCamera | null;
     raycaster: any;
     pointer: any;
-    targetPos: { x: number; y: number; z: number };
-    targetLook: { x: number; y: number; z: number };
+    /** 正在进行的视角过渡；null 表示相机完全交给 OrbitControls */
+    flight: {
+      fromPos: any;
+      toPos: any;
+      fromLook: any;
+      toLook: any;
+      start: number;
+      duration: number;
+    } | null;
     highlightMaterials: Map<any, any>;
     raf: number;
   } | null>(null);
+
+  /** 由 Three.js 侧填入：把视角飞到指定预设 */
+  const flyToRef = useRef<((view: CameraView) => void) | null>(null);
+  /** 由 Three.js 侧填入：切换自动旋转 */
+  const autoRotateRef = useRef<((on: boolean) => void) | null>(null);
 
   const selectedPart: CameraPart | null = selectedPartId
     ? partById(selectedPartId) ?? null
@@ -141,6 +165,8 @@ export default function CameraModel({ base }: Props) {
       controls.dampingFactor = 0.08;
       controls.minDistance = 6;
       controls.maxDistance = 35;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
       controls.target.set(...defaultView.lookAt);
       controls.update();
 
@@ -157,15 +183,13 @@ export default function CameraModel({ base }: Props) {
         cameraGroup: cameraModel,
         raycaster,
         pointer,
-        targetPos: {
-          x: defaultView.position[0],
-          y: defaultView.position[1],
-          z: defaultView.position[2],
-        },
-        targetLook: {
-          x: defaultView.lookAt[0],
-          y: defaultView.lookAt[1],
-          z: defaultView.lookAt[2],
+        flight: null as null | {
+          fromPos: any;
+          toPos: any;
+          fromLook: any;
+          toLook: any;
+          start: number;
+          duration: number;
         },
         highlightMaterials,
         raf: 0,
@@ -173,22 +197,95 @@ export default function CameraModel({ base }: Props) {
       runtimeRef.current = runtime;
       setLoading(false);
 
+      // 视角切换：记录起止点做一次限时补间，结束后交还控制权给 OrbitControls。
+      // 早先的实现是每帧朝目标 lerp，永不结束，用户拖动会被一直往回拽。
+      flyToRef.current = (view) => {
+        runtime.flight = {
+          fromPos: camera.position.clone(),
+          toPos: new THREE.Vector3(...view.position),
+          fromLook: controls.target.clone(),
+          toLook: new THREE.Vector3(...view.lookAt),
+          start: performance.now(),
+          duration: 620,
+        };
+      };
+
+      autoRotateRef.current = (on) => {
+        controls.autoRotate = on;
+      };
+
+      // 用户一上手就停掉自动旋转，别和手动操作抢方向
+      const stopAutoRotate = () => {
+        if (!controls.autoRotate) return;
+        controls.autoRotate = false;
+        setAutoRotate(false);
+      };
+      controls.addEventListener('start', stopAutoRotate);
+
+      // 热点投影每隔几帧算一次就够，位置变化本身是连续的
+      const projected = new THREE.Vector3();
+      let hotspotTick = 0;
+      const updateHotspots = () => {
+        const group = runtime.cameraGroup;
+        if (!group) return;
+        const next: Hotspot[] = [];
+        const camDir = new THREE.Vector3();
+        camera.getWorldDirection(camDir);
+
+        group.interactive.forEach((obj, id) => {
+          const part = partById(id);
+          if (!part) return;
+          const box = new THREE.Box3().setFromObject(obj);
+          if (box.isEmpty()) return;
+          box.getCenter(projected);
+
+          // 背面朝向观察者的部件不标点：从部件指向相机的方向若与视线同向，说明被机身挡住
+          const toCamera = new THREE.Vector3()
+            .subVectors(camera.position, projected)
+            .normalize();
+          if (toCamera.dot(camDir) > -0.1) return;
+
+          // 遮挡测试：从相机打一条射线到部件中心，若先撞到别的部件就跳过
+          raycaster.set(
+            camera.position,
+            new THREE.Vector3().subVectors(projected, camera.position).normalize(),
+          );
+          const blockers: any[] = [];
+          group.group.traverse((o) => {
+            if ((o as any).isMesh) blockers.push(o);
+          });
+          const hit = raycaster.intersectObjects(blockers, false)[0];
+          if (hit && hit.object.userData?.partId !== id) return;
+
+          const ndc = projected.clone().project(camera);
+          if (ndc.z > 1 || ndc.x < -1 || ndc.x > 1 || ndc.y < -1 || ndc.y > 1) return;
+          next.push({
+            id,
+            label: part.label,
+            x: (ndc.x * 0.5 + 0.5) * 100,
+            y: (-ndc.y * 0.5 + 0.5) * 100,
+          });
+        });
+        setHotspots(next);
+      };
+
       // —— 动画循环 ——
       const animate = () => {
         runtime.raf = requestAnimationFrame(animate);
 
-        // 视角平滑过渡（朝 targetPos / targetLook lerp）
-        const pos = camera.position;
-        pos.x += (runtime.targetPos.x - pos.x) * 0.08;
-        pos.y += (runtime.targetPos.y - pos.y) * 0.08;
-        pos.z += (runtime.targetPos.z - pos.z) * 0.08;
-
-        const tgt = controls.target;
-        tgt.x += (runtime.targetLook.x - tgt.x) * 0.1;
-        tgt.y += (runtime.targetLook.y - tgt.y) * 0.1;
-        tgt.z += (runtime.targetLook.z - tgt.z) * 0.1;
+        const flight = runtime.flight;
+        if (flight) {
+          const t = Math.min(1, (performance.now() - flight.start) / flight.duration);
+          // easeInOutCubic，起步和落位都收一下
+          const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          camera.position.lerpVectors(flight.fromPos, flight.toPos, e);
+          controls.target.lerpVectors(flight.fromLook, flight.toLook, e);
+          if (t >= 1) runtime.flight = null;
+        }
 
         controls.update();
+
+        if (++hotspotTick % 6 === 0) updateHotspots();
         renderer.render(scene, camera);
       };
       animate();
@@ -354,8 +451,12 @@ export default function CameraModel({ base }: Props) {
         downAt = null;
         if (moved > 6) return;
         const pid = getPartIdFromEvent(event);
-        // 同一个点两下 = 关闭
+        // 同一个点两下 = 关闭。画布上直接点中的部件已经在眼前，不必再飞视角。
         setSelectedPartId((prev) => (prev === pid ? null : pid));
+        if (pid) {
+          autoRotateRef.current?.(false);
+          setAutoRotate(false);
+        }
       };
 
       canvas.addEventListener('pointermove', onMove);
@@ -370,10 +471,13 @@ export default function CameraModel({ base }: Props) {
         canvas.removeEventListener('pointermove', onMove);
         canvas.removeEventListener('pointerdown', onDown);
         canvas.removeEventListener('pointerup', onUp);
+        controls.removeEventListener('start', stopAutoRotate);
         controls.dispose();
         renderer.dispose();
         disposeGroup(scene);
         runtimeRef.current = null;
+        flyToRef.current = null;
+        autoRotateRef.current = null;
       };
     })();
 
@@ -388,17 +492,63 @@ export default function CameraModel({ base }: Props) {
     emphasisRef.current?.({ hover: hoverPartId, selected: selectedPartId });
   }, [hoverPartId, selectedPartId, loading]);
 
-  // 切换视角
+  // Esc 关闭说明浮层
+  useEffect(() => {
+    if (!selectedPartId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPartId(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedPartId]);
+
+  // 切换视角：交给 Three.js 侧做一次限时补间
   const handleViewChange = (view: CameraView) => {
     setActiveView(view.id);
-    const rt = runtimeRef.current;
-    if (!rt) return;
-    rt.targetPos.x = view.position[0];
-    rt.targetPos.y = view.position[1];
-    rt.targetPos.z = view.position[2];
-    rt.targetLook.x = view.lookAt[0];
-    rt.targetLook.y = view.lookAt[1];
-    rt.targetLook.z = view.lookAt[2];
+    setAutoRotate(false);
+    autoRotateRef.current?.(false);
+    flyToRef.current?.(view);
+  };
+
+  const toggleAutoRotate = () => {
+    const next = !autoRotate;
+    setAutoRotate(next);
+    autoRotateRef.current?.(next);
+  };
+
+  /** 选中部件：顺带飞到看得见它的那一面 */
+  const selectPart = (id: string | null) => {
+    setSelectedPartId((prev) => {
+      const next = prev === id ? null : id;
+      if (next) {
+        const part = partById(next);
+        const view = part?.bestView
+          ? VIEWS.find((v) => v.id === part.bestView)
+          : undefined;
+        if (view) {
+          setActiveView(view.id);
+          setAutoRotate(false);
+          autoRotateRef.current?.(false);
+          flyToRef.current?.(view);
+        }
+      }
+      return next;
+    });
+  };
+
+  /** 按列表顺序翻到上/下一个部件 */
+  const stepPart = (delta: number) => {
+    const idx = PARTS.findIndex((p) => p.id === selectedPartId);
+    const next = PARTS[(idx + delta + PARTS.length) % PARTS.length];
+    if (!next || next.id === selectedPartId) return;
+    setSelectedPartId(next.id);
+    const view = next.bestView ? VIEWS.find((v) => v.id === next.bestView) : undefined;
+    if (view) {
+      setActiveView(view.id);
+      setAutoRotate(false);
+      autoRotateRef.current?.(false);
+      flyToRef.current?.(view);
+    }
   };
 
   return (
@@ -409,6 +559,24 @@ export default function CameraModel({ base }: Props) {
         <div className="camera-model__loading">
           <div className="camera-model__loading-ring" />
           <span>加载相机模型中…</span>
+        </div>
+      )}
+
+      {/* 部件热点：标出画面上当前可点的位置 */}
+      {!loading && showHotspots && (
+        <div className="camera-model__hotspots" aria-hidden="true">
+          {hotspots.map((h) => (
+            <span
+              key={h.id}
+              className={`camera-model__hotspot${
+                selectedPartId === h.id ? ' is-active' : ''
+              }${hoverPartId === h.id ? ' is-hover' : ''}`}
+              style={{ left: `${h.x}%`, top: `${h.y}%` }}
+            >
+              <i className="camera-model__hotspot-dot" />
+              <em className="camera-model__hotspot-label">{h.label}</em>
+            </span>
+          ))}
         </div>
       )}
 
@@ -426,6 +594,36 @@ export default function CameraModel({ base }: Props) {
         ))}
       </div>
 
+      {/* 画布开关：自动旋转 / 热点显隐 */}
+      <div className="camera-model__toggles">
+        <button
+          type="button"
+          className={`camera-model__toggle${autoRotate ? ' is-on' : ''}`}
+          onClick={toggleAutoRotate}
+          aria-pressed={autoRotate}
+          title={autoRotate ? '停止自动旋转' : '开始自动旋转'}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+            <path d="M21 3v6h-6" />
+          </svg>
+          <span className="camera-model__toggle-text">自动旋转</span>
+        </button>
+        <button
+          type="button"
+          className={`camera-model__toggle${showHotspots ? ' is-on' : ''}`}
+          onClick={() => setShowHotspots((v) => !v)}
+          aria-pressed={showHotspots}
+          title={showHotspots ? '隐藏部件标记' : '显示部件标记'}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <span className="camera-model__toggle-text">部件标记</span>
+        </button>
+      </div>
+
       {/* 可交互部件列表 */}
       <div
         className={`camera-model__parts${selectedPart ? ' is-collapsed' : ''}`}
@@ -434,27 +632,36 @@ export default function CameraModel({ base }: Props) {
           <span className="camera-model__parts-label">可交互部件</span>
           <span className="camera-model__parts-count">{PARTS.length} 个</span>
         </div>
-        <ul className="camera-model__parts-list">
-          {PARTS.map((p) => (
-            <li key={p.id}>
-              <button
-                type="button"
-                className={`camera-model__part-btn${
-                  selectedPartId === p.id ? ' is-active' : ''
-                }${hoverPartId === p.id ? ' is-hover' : ''}`}
-                onMouseEnter={() => setHoverPartId(p.id)}
-                onMouseLeave={() =>
-                  setHoverPartId((prev) => (prev === p.id ? null : prev))
-                }
-                onClick={() =>
-                  setSelectedPartId((prev) => (prev === p.id ? null : p.id))
-                }
-              >
-                {p.label}
-              </button>
-            </li>
+        <div className="camera-model__parts-scroll">
+          {PART_GROUPS.map((g) => (
+            <div className="camera-model__parts-group" key={g.label}>
+              <span className="camera-model__parts-group-label">{g.label}</span>
+              <ul className="camera-model__parts-list">
+                {g.ids.map((id) => {
+                  const p = partById(id);
+                  if (!p) return null;
+                  return (
+                    <li key={p.id}>
+                      <button
+                        type="button"
+                        className={`camera-model__part-btn${
+                          selectedPartId === p.id ? ' is-active' : ''
+                        }${hoverPartId === p.id ? ' is-hover' : ''}`}
+                        onMouseEnter={() => setHoverPartId(p.id)}
+                        onMouseLeave={() =>
+                          setHoverPartId((prev) => (prev === p.id ? null : prev))
+                        }
+                        onClick={() => selectPart(p.id)}
+                      >
+                        {p.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
 
       {/* 选中部件说明浮层 */}
@@ -470,14 +677,40 @@ export default function CameraModel({ base }: Props) {
           </button>
           <h3 className="camera-model__info-title">{selectedPart.label}</h3>
           <p className="camera-model__info-desc">{selectedPart.description}</p>
-          {selectedPart.tutorial && (
-            <a
-              className="camera-model__info-link"
-              href={`${base}/learn/${selectedPart.tutorial.category}/${selectedPart.tutorial.slug}/`}
-            >
-              了解更多 →
-            </a>
-          )}
+          <div className="camera-model__info-foot">
+            {selectedPart.tutorial ? (
+              <a
+                className="camera-model__info-link"
+                href={`${base}/learn/${selectedPart.tutorial.category}/${selectedPart.tutorial.slug}/`}
+              >
+                {selectedPart.tutorial.title} →
+              </a>
+            ) : (
+              <span />
+            )}
+            {/* 顺序翻阅所有部件，省得每次回到列表里找 */}
+            <span className="camera-model__info-nav">
+              <button
+                type="button"
+                onClick={() => stepPart(-1)}
+                aria-label="上一个部件"
+                title="上一个部件"
+              >
+                ‹
+              </button>
+              <span className="camera-model__info-index">
+                {PARTS.findIndex((p) => p.id === selectedPart.id) + 1}/{PARTS.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => stepPart(1)}
+                aria-label="下一个部件"
+                title="下一个部件"
+              >
+                ›
+              </button>
+            </span>
+          </div>
         </div>
       )}
     </div>

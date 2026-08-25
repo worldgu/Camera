@@ -1,5 +1,5 @@
 /**
- * 相机模型的可交互部件数据（需求 10.2，共 13 个）。
+ * 相机模型的可交互部件数据（需求 10.2，共 15 个）。
  *
  * 每个部件包含：
  * - id：稳定的唯一标识，与 Three.js mesh 的 userData.partId 对应
@@ -111,6 +111,13 @@ export const PARTS: CameraPart[] = [
     bestView: 'front',
     tutorial: { category: 'gear', slug: 'lens-system-and-mount', title: '镜头体系与卡口' },
   },
+  {
+    id: 'lens-release',
+    label: '镜头释放键',
+    description: '按住再逆时针转镜头，就能把镜头从机身上卸下来。换镜头前记得关机。',
+    bestView: 'front',
+    tutorial: { category: 'gear', slug: 'lens-system-and-mount', title: '镜头体系与卡口' },
+  },
 
   // —— 底部 / 侧面 ——
   {
@@ -147,6 +154,6 @@ export const PART_GROUPS: { label: string; ids: string[] }[] = [
     ],
   },
   { label: '背面', ids: ['rear-dial', 'control-wheel', 'evf', 'flip-screen'] },
-  { label: '正面', ids: ['front-dial', 'lens-mount'] },
+  { label: '正面', ids: ['front-dial', 'lens-mount', 'lens-release'] },
   { label: '底部 / 侧面', ids: ['battery-compartment', 'card-slot'] },
 ];

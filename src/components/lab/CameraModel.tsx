@@ -120,13 +120,15 @@ export default function CameraModel({ base }: Props) {
       renderer.setSize(host.clientWidth, host.clientHeight, false);
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.08;
 
       // —— 灯光：三点布光 + 环境光 ——
-      const ambient = new THREE.AmbientLight(0xffffff, 0.45);
+      const ambient = new THREE.AmbientLight(0xffffff, 0.42);
       scene.add(ambient);
 
-      const keyLight = new THREE.DirectionalLight(0xffffff, 1.1);
-      keyLight.position.set(8, 10, 8);
+      const keyLight = new THREE.DirectionalLight(0xfff8f0, 1.15);
+      keyLight.position.set(8, 12, 9);
       keyLight.castShadow = true;
       keyLight.shadow.mapSize.set(1024, 1024);
       scene.add(keyLight);
@@ -144,7 +146,7 @@ export default function CameraModel({ base }: Props) {
       const groundMat = new THREE.ShadowMaterial({ opacity: 0.25 });
       const ground = new THREE.Mesh(groundGeo, groundMat);
       ground.rotation.x = -Math.PI / 2;
-      ground.position.y = -3.8;
+      ground.position.y = -3.2;
       ground.receiveShadow = true;
       scene.add(ground);
 

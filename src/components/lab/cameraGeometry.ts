@@ -33,6 +33,11 @@ export interface CameraPalette {
 export interface BuiltCamera {
   group: THREE.Group;
   interactive: Map<string, THREE.Object3D>;
+  /**
+   * 可真实旋转的转盘轴心。key 为部件 id，值是以转盘轴线为原点的 Group，
+   * 直接给它设 rotation.y 就能转，不会带动机身其他部分。
+   */
+  dialPivots: Map<string, THREE.Object3D>;
 }
 
 /** 握把斜向防滑纹（A7C2 握把为斜纹蒙皮） */
@@ -94,6 +99,7 @@ export function buildCamera(
 ): BuiltCamera {
   const group = new THREE.Group();
   const interactive = new Map<string, THREE.Object3D>();
+  const dialPivots = new Map<string, THREE.Object3D>();
 
   const addPart = (id: string, meshes: THREE.Object3D[]) => {
     const partGroup = new THREE.Group();
@@ -352,43 +358,51 @@ export function buildCamera(
   const topY = BODY_Y + BODY_H / 2 + 0.22;
 
   // ---------- 机顶：模式转盘 ----------
+  // 转盘要能真实旋转，所以可转部分挂进一个以转盘轴线为原点的 pivot，
+  // 子件用相对坐标；否则直接转 group 会绕世界原点公转。
+  const MODE_CX = 2.55;
+  const MODE_CZ = 0.55;
+  const modePivot = new THREE.Group();
+  modePivot.name = 'mode-dial-pivot';
+  modePivot.position.set(MODE_CX, topY, MODE_CZ);
+
   const modeDial = new THREE.Mesh(
     new THREE.CylinderGeometry(0.92, 1.02, 0.38, 28),
     dialMat,
   );
-  modeDial.position.set(2.55, topY + 0.12, 0.55);
+  modeDial.position.set(0, 0.12, 0);
 
   const modeDialTop = new THREE.Mesh(
     new THREE.CylinderGeometry(0.88, 0.88, 0.1, 28),
     dialTopMat,
   );
-  modeDialTop.position.set(2.55, topY + 0.34, 0.55);
+  modeDialTop.position.set(0, 0.34, 0);
 
   const modeDots: THREE.Object3D[] = [];
   for (let i = 0; i < 8; i++) {
     const angle = (i / 8) * Math.PI * 2;
     const dot = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 8), bodyMat);
-    dot.position.set(
-      2.55 + Math.cos(angle) * 0.68,
-      topY + 0.38,
-      0.55 + Math.sin(angle) * 0.68,
-    );
+    dot.position.set(Math.cos(angle) * 0.68, 0.38, Math.sin(angle) * 0.68);
     modeDots.push(dot);
   }
 
-  // 模式转盘指针 + 锁定槽
+  // 指针跟着转盘转，所以进 pivot；+Z 为 0 度基准，与 cameraModes.ts 的 angle 约定一致
   const modePointer = new THREE.Mesh(
     new THREE.BoxGeometry(0.12, 0.06, 0.28),
     logoMat,
   );
-  modePointer.position.set(2.55, topY + 0.4, 0.55 + 0.72);
+  modePointer.position.set(0, 0.4, 0.72);
 
+  [modeDial, modeDialTop, modePointer, ...modeDots].forEach((m) => modePivot.add(m));
+
+  // 锁定槽是机身上的固定件，不随转盘转动，所以留在外面用绝对坐标
   const modeLock = new THREE.Mesh(
     new THREE.BoxGeometry(0.18, 0.14, 0.22),
     dialMat,
   );
-  modeLock.position.set(2.55 + 0.95, topY + 0.18, 0.55);
-  addPart('mode-dial', [modeDial, modeDialTop, modePointer, modeLock, ...modeDots]);
+  modeLock.position.set(MODE_CX + 0.95, topY + 0.18, MODE_CZ);
+  addPart('mode-dial', [modePivot, modeLock]);
+  dialPivots.set('mode-dial', modePivot);
 
   // ---------- 机顶：曝光补偿转盘 ----------
   const expDial = new THREE.Mesh(
@@ -640,7 +654,7 @@ export function buildCamera(
     });
   });
 
-  return { group, interactive };
+  return { group, interactive, dialPivots };
 }
 
 /**

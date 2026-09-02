@@ -86,6 +86,46 @@
   margin-bottom: 12px;
 }
 
+/* ---------- 从相机模型拨档过来的提示 ---------- */
+.sim__from-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.sim__from-mode-tag {
+  flex: none;
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--bg);
+  background: var(--fg);
+}
+
+.sim__from-mode-text {
+  font-size: 0.74rem;
+  color: var(--fg-secondary);
+}
+
+.sim__from-mode-link {
+  margin-left: auto;
+  font-size: 0.74rem;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.18s;
+}
+
+.sim__from-mode-link:hover {
+  border-bottom-color: var(--fg);
+}
+
 .sim__scene {
   background: none;
   border: none;

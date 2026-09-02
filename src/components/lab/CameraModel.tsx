@@ -2,6 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { buildCamera, readCameraPalette, type BuiltCamera } from './cameraGeometry';
 import { VIEWS, DEFAULT_VIEW_ID, type CameraView } from './cameraViews';
 import { PARTS, PART_GROUPS, partById, type CameraPart } from './cameraParts';
+import {
+  MODES,
+  DEFAULT_MODE_ID,
+  modeById,
+  simulatorHref,
+  type CameraMode,
+} from './cameraModes';
 
 interface Props {
   base: string;
@@ -37,6 +44,7 @@ export default function CameraModel({ base }: Props) {
   const [hotspots, setHotspots] = useState<Hotspot[]>([]);
   const [showHotspots, setShowHotspots] = useState(true);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [modeId, setModeId] = useState(DEFAULT_MODE_ID);
 
   /**
    * 由 Three.js 初始化后填入的高亮更新函数。
@@ -65,6 +73,14 @@ export default function CameraModel({ base }: Props) {
       start: number;
       duration: number;
     } | null;
+    /** 模式转盘正在进行的旋转补间；null 表示静止 */
+    dialSpin: {
+      pivot: any;
+      from: number;
+      to: number;
+      start: number;
+      duration: number;
+    } | null;
     highlightMaterials: Map<any, any>;
     raf: number;
   } | null>(null);
@@ -73,6 +89,8 @@ export default function CameraModel({ base }: Props) {
   const flyToRef = useRef<((view: CameraView) => void) | null>(null);
   /** 由 Three.js 侧填入：切换自动旋转 */
   const autoRotateRef = useRef<((on: boolean) => void) | null>(null);
+  /** 由 Three.js 侧填入：把模式转盘转到指定角度 */
+  const spinDialRef = useRef<((angle: number) => void) | null>(null);
 
   const selectedPart: CameraPart | null = selectedPartId
     ? partById(selectedPartId) ?? null
@@ -193,6 +211,13 @@ export default function CameraModel({ base }: Props) {
           start: number;
           duration: number;
         },
+        dialSpin: null as null | {
+          pivot: any;
+          from: number;
+          to: number;
+          start: number;
+          duration: number;
+        },
         highlightMaterials,
         raf: 0,
       };
@@ -214,6 +239,27 @@ export default function CameraModel({ base }: Props) {
 
       autoRotateRef.current = (on) => {
         controls.autoRotate = on;
+      };
+
+      /**
+       * 模式转盘旋转：和视角切换一样做限时补间。
+       * 角度按最短路径归一化到 (-PI, PI]，避免从 M 回 P 时转了 270° 的长路。
+       */
+      spinDialRef.current = (angle) => {
+        const pivot = cameraModel.dialPivots.get('mode-dial');
+        if (!pivot) return;
+        const from = pivot.rotation.y;
+        let delta = angle - from;
+        while (delta > Math.PI) delta -= Math.PI * 2;
+        while (delta <= -Math.PI) delta += Math.PI * 2;
+        if (Math.abs(delta) < 1e-4) return;
+        runtime.dialSpin = {
+          pivot,
+          from,
+          to: from + delta,
+          start: performance.now(),
+          duration: 420,
+        };
       };
 
       // 用户一上手就停掉自动旋转，别和手动操作抢方向
@@ -283,6 +329,15 @@ export default function CameraModel({ base }: Props) {
           camera.position.lerpVectors(flight.fromPos, flight.toPos, e);
           controls.target.lerpVectors(flight.fromLook, flight.toLook, e);
           if (t >= 1) runtime.flight = null;
+        }
+
+        // 模式转盘的旋转补间，用和视角切换相同的缓动曲线保持手感一致
+        const spin = runtime.dialSpin;
+        if (spin) {
+          const t = Math.min(1, (performance.now() - spin.start) / spin.duration);
+          const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          spin.pivot.rotation.y = spin.from + (spin.to - spin.from) * e;
+          if (t >= 1) runtime.dialSpin = null;
         }
 
         controls.update();
@@ -480,6 +535,7 @@ export default function CameraModel({ base }: Props) {
         runtimeRef.current = null;
         flyToRef.current = null;
         autoRotateRef.current = null;
+        spinDialRef.current = null;
       };
     })();
 
@@ -516,6 +572,19 @@ export default function CameraModel({ base }: Props) {
     const next = !autoRotate;
     setAutoRotate(next);
     autoRotateRef.current?.(next);
+  };
+
+  const activeMode: CameraMode = modeById(modeId) ?? MODES[0];
+
+  /**
+   * 拨模式转盘：转盘真实转到该档，同时停掉自动旋转，
+   * 否则机身在转、转盘也在转，看不清指针停在哪。
+   */
+  const handleModeChange = (mode: CameraMode) => {
+    setModeId(mode.id);
+    setAutoRotate(false);
+    autoRotateRef.current?.(false);
+    spinDialRef.current?.(mode.angle);
   };
 
   /** 选中部件：顺带飞到看得见它的那一面 */
@@ -679,6 +748,34 @@ export default function CameraModel({ base }: Props) {
           </button>
           <h3 className="camera-model__info-title">{selectedPart.label}</h3>
           <p className="camera-model__info-desc">{selectedPart.description}</p>
+
+          {/* 模式转盘是唯一可实拨的部件：四档可选，选完能直接带参数去模拟器验证 */}
+          {selectedPart.id === 'mode-dial' && (
+            <div className="camera-model__modes">
+              <div className="camera-model__modes-row" role="group" aria-label="模式档位">
+                {MODES.map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    className={`camera-model__mode${m.id === modeId ? ' is-active' : ''}`}
+                    onClick={() => handleModeChange(m)}
+                    aria-pressed={m.id === modeId}
+                    title={m.name}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+              <p className="camera-model__mode-name">
+                {activeMode.label} · {activeMode.name}
+              </p>
+              <p className="camera-model__mode-desc">{activeMode.description}</p>
+              <a className="camera-model__mode-link" href={simulatorHref(base, activeMode)}>
+                用这档去曝光模拟器试试 →
+              </a>
+            </div>
+          )}
+
           <div className="camera-model__info-foot">
             {selectedPart.tutorial ? (
               <a

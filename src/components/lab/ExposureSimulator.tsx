@@ -3,6 +3,7 @@ import Dial from './Dial';
 import Histogram from './Histogram';
 import { SCENES, layersOf, type Palette, type SceneKey } from './scenes';
 import { renderScene, sampleHistogram } from './render';
+import { modeById, type CameraMode } from './cameraModes';
 import {
   APERTURES,
   ISOS,
@@ -29,9 +30,12 @@ const DEFAULTS: Params = {
   isoIndex: 0, // ISO 100
 };
 
-/** 从 URL query 读预设，供教程文章跳转时带参数（需求 10.6） */
-function readPreset(): { params: Params; scene: SceneKey } {
-  const fallback = { params: DEFAULTS, scene: 'portrait' as SceneKey };
+/**
+ * 从 URL query 读预设，供教程文章跳转时带参数（需求 10.6），
+ * 以及相机模型的模式转盘拨档后跳过来（需求 10.2 转盘联动）。
+ */
+function readPreset(): { params: Params; scene: SceneKey; mode: CameraMode | null } {
+  const fallback = { params: DEFAULTS, scene: 'portrait' as SceneKey, mode: null };
   if (typeof window === 'undefined') return fallback;
 
   const q = new URLSearchParams(window.location.search);
@@ -84,6 +88,9 @@ function readPreset(): { params: Params; scene: SceneKey } {
     ? (sceneRaw as SceneKey)
     : fallback.scene;
 
+  // mode 只用于显示「从相机模型的哪一档过来」，不参与曝光计算
+  const mode = modeById(q.get('mode') ?? '') ?? null;
+
   return {
     params: {
       apertureIndex: nearest(APERTURES, q.get('aperture'), DEFAULTS.apertureIndex),
@@ -91,6 +98,7 @@ function readPreset(): { params: Params; scene: SceneKey } {
       isoIndex: nearest(ISOS, q.get('iso'), DEFAULTS.isoIndex),
     },
     scene,
+    mode,
   };
 }
 
@@ -116,6 +124,7 @@ export default function ExposureSimulator({ base }: Props) {
   const [params, setParams] = useState<Params>(DEFAULTS);
   const [scene, setScene] = useState<SceneKey>('portrait');
   const [autoExposure, setAutoExposure] = useState(false);
+  const [fromMode, setFromMode] = useState<CameraMode | null>(null);
   const [bins, setBins] = useState<number[]>(() => new Array(256).fill(0));
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
@@ -125,6 +134,7 @@ export default function ExposureSimulator({ base }: Props) {
     const preset = readPreset();
     setParams(preset.params);
     setScene(preset.scene);
+    setFromMode(preset.mode);
   }, []);
 
   const meta = SCENES.find((s) => s.key === scene) ?? SCENES[0];
@@ -212,6 +222,18 @@ export default function ExposureSimulator({ base }: Props) {
       </div>
 
       <div className="sim__panel">
+        {/* 从相机模型拨档过来时，说明这组参数的来路，并留一条回去的路 */}
+        {fromMode && (
+          <div className="sim__from-mode">
+            <span className="sim__from-mode-tag">{fromMode.label}</span>
+            <span className="sim__from-mode-text">
+              来自模式转盘的 {fromMode.name}
+            </span>
+            <a className="sim__from-mode-link" href={`${base}/lab/camera/`}>
+              回相机模型
+            </a>
+          </div>
+        )}
         <div className="sim__scenes" role="group" aria-label="场景预设">
           {SCENES.map((s) => (
             <button

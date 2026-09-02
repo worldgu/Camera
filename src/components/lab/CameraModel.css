@@ -386,6 +386,71 @@
   text-align: center;
 }
 
+/* ---------- 模式转盘档位（仅模式转盘部件显示） ---------- */
+.camera-model__modes {
+  margin: 14px 0 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.camera-model__modes-row {
+  display: grid;
+  /* 四档等宽，避免 hover 时按钮宽度跳动 */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.camera-model__mode {
+  padding: 7px 0;
+  font-family: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--fg-secondary);
+  background: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+
+.camera-model__mode:hover {
+  color: var(--fg);
+  border-color: var(--fg-muted);
+}
+
+.camera-model__mode.is-active {
+  color: var(--bg);
+  background: var(--fg);
+  border-color: var(--fg);
+}
+
+.camera-model__mode-name {
+  margin: 10px 0 4px;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--fg);
+}
+
+.camera-model__mode-desc {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: var(--fg-secondary);
+}
+
+.camera-model__mode-link {
+  display: inline-block;
+  font-size: 0.74rem;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: border-color 0.18s;
+}
+
+.camera-model__mode-link:hover {
+  border-bottom-color: var(--fg);
+}
+
 /* ---------- 窄屏 ---------- */
 @media (max-width: 760px) {
   .camera-model {

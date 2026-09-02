@@ -1,0 +1,31 @@
+docs/需求文档.md
+  s_2ba607dae6fb9b::t_580420321fd663 3,360,374,376,381-383,537,543,567-572,711,717-729
+src/components/lab/CameraModel.css
+  s_2ba607dae6fb9b::t_4c067f55f8c793 389-453
+src/components/lab/CameraModel.tsx
+  s_2ba607dae6fb9b::t_11b275af07a7d0 5-11,47,76-83,92-93,214-220,244-264,334-342,538,577-589,751-778
+src/components/lab/ExposureSimulator.css
+  s_2ba607dae6fb9b::t_c177e524f3217d 89-128
+src/components/lab/ExposureSimulator.tsx
+  s_2ba607dae6fb9b::t_dbb9f80f3e8b10 6,33-38,91-93,101,127,137,225-236
+src/components/lab/cameraGeometry.ts
+  s_2ba607dae6fb9b::t_c903165bccedf8 36-40,102,361-368,373,379,385,389,394-396,398,403-405,657
+src/components/lab/cameraModes.ts
+  s_2ba607dae6fb9b::t_e0f651a6ad9704 1-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4fb831f33376b8270f0044823ec3767251a75bfb",
+  "prompts": {},
+  "sessions": {
+    "s_2ba607dae6fb9b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a062d1-cdbe-75b3-a428-a90f70b77703",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangsihai@jtexpress.com>"
+    }
+  }
+}

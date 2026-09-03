@@ -72,6 +72,30 @@ export function modeById(id: string): CameraMode | undefined {
   return MODES.find((m) => m.id === id);
 }
 
+/**
+ * 曝光补偿档位（需求 10.3「后续可扩展」：曝光补偿 ±3EV）。
+ *
+ * 真机是 1/3 档步进，但曝光模拟器的计算层按整档（1 EV）离散，
+ * 这里跟着整档走，保持两边量纲一致。
+ *
+ * 转盘上 0 位朝正前方，每档转 40°：±3 档正好占满 240°，
+ * 与真机上曝光补偿转盘不能整圈旋转的手感相符。
+ */
+export const EV_STEPS = [-3, -2, -1, 0, 1, 2, 3] as const;
+
+const EV_ANGLE_PER_STOP = (Math.PI * 40) / 180;
+
+/** 某档补偿对应的转盘角度；正补偿顺时针 */
+export function evAngle(ev: number): number {
+  return ev * EV_ANGLE_PER_STOP;
+}
+
+/** 格式化补偿读数，0 显示为 ±0 */
+export function formatEv(ev: number): string {
+  if (ev === 0) return '±0';
+  return `${ev > 0 ? '+' : ''}${ev}`;
+}
+
 /** 拼出跳转曝光模拟器的链接，base 为站点基路径（不带尾斜杠） */
 export function simulatorHref(base: string, mode: CameraMode): string {
   const q = new URLSearchParams({ ...mode.preset, mode: mode.id });

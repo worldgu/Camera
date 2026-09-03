@@ -451,6 +451,36 @@
   border-bottom-color: var(--fg);
 }
 
+/* 曝光补偿档位：7 档比 4 档密，单独给一套更紧的网格 */
+.camera-model__evs {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.camera-model__ev {
+  padding: 6px 0;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-secondary);
+  background: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+
+.camera-model__ev:hover {
+  color: var(--fg);
+  border-color: var(--fg-muted);
+}
+
+.camera-model__ev.is-active {
+  color: var(--bg);
+  background: var(--fg);
+  border-color: var(--fg);
+}
+
 /* ---------- 窄屏 ---------- */
 @media (max-width: 760px) {
   .camera-model {

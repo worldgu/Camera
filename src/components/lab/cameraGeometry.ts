@@ -405,23 +405,34 @@ export function buildCamera(
   dialPivots.set('mode-dial', modePivot);
 
   // ---------- 机顶：曝光补偿转盘 ----------
+  // 和模式转盘同理：可转部分进 pivot 用相对坐标，才能绕自身轴线转
+  const EXP_CX = 2.55;
+  const EXP_CZ = -0.75;
+  const expPivot = new THREE.Group();
+  expPivot.name = 'exposure-comp-dial-pivot';
+  expPivot.position.set(EXP_CX, topY, EXP_CZ);
+
   const expDial = new THREE.Mesh(
     new THREE.CylinderGeometry(0.62, 0.72, 0.3, 24),
     dialMat,
   );
-  expDial.position.set(2.55, topY + 0.08, -0.75);
+  expDial.position.set(0, 0.08, 0);
 
   const expDialTop = new THREE.Mesh(
     new THREE.CylinderGeometry(0.58, 0.58, 0.08, 24),
     dialTopMat,
   );
-  expDialTop.position.set(2.55, topY + 0.26, -0.75);
+  expDialTop.position.set(0, 0.26, 0);
 
+  // + / - 刻字随转盘转动，指示当前补偿方向
   const expPlus = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.05, 0.18), logoMat);
-  expPlus.position.set(2.55, topY + 0.3, -0.75 - 0.52);
+  expPlus.position.set(0, 0.3, -0.52);
   const expMinus = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.05, 0.18), logoMat);
-  expMinus.position.set(2.55, topY + 0.3, -0.75 + 0.52);
-  addPart('exposure-comp-dial', [expDial, expDialTop, expPlus, expMinus]);
+  expMinus.position.set(0, 0.3, 0.52);
+
+  [expDial, expDialTop, expPlus, expMinus].forEach((m) => expPivot.add(m));
+  addPart('exposure-comp-dial', [expPivot]);
+  dialPivots.set('exposure-comp-dial', expPivot);
 
   // ---------- 机顶：快门按钮（握把顶部） ----------
   const shutterBase = new THREE.Mesh(

@@ -5,6 +5,9 @@ import { PARTS, PART_GROUPS, partById, type CameraPart } from './cameraParts';
 import {
   MODES,
   DEFAULT_MODE_ID,
+  EV_STEPS,
+  evAngle,
+  formatEv,
   modeById,
   simulatorHref,
   type CameraMode,
@@ -45,6 +48,7 @@ export default function CameraModel({ base }: Props) {
   const [showHotspots, setShowHotspots] = useState(true);
   const [autoRotate, setAutoRotate] = useState(true);
   const [modeId, setModeId] = useState(DEFAULT_MODE_ID);
+  const [ev, setEv] = useState(0);
 
   /**
    * 由 Three.js 初始化后填入的高亮更新函数。
@@ -73,14 +77,18 @@ export default function CameraModel({ base }: Props) {
       start: number;
       duration: number;
     } | null;
-    /** 模式转盘正在进行的旋转补间；null 表示静止 */
-    dialSpin: {
+    /**
+     * 各转盘正在进行的旋转补间，按部件 id 存。
+     * 用 Map 而不是单个字段：模式转盘和曝光补偿转盘可以同时在转，
+     * 共用一个槽位会让后触发的把前一个顶掉，动画中途卡住。
+     */
+    dialSpins: Map<string, {
       pivot: any;
       from: number;
       to: number;
       start: number;
       duration: number;
-    } | null;
+    }>;
     highlightMaterials: Map<any, any>;
     raf: number;
   } | null>(null);
@@ -89,8 +97,8 @@ export default function CameraModel({ base }: Props) {
   const flyToRef = useRef<((view: CameraView) => void) | null>(null);
   /** 由 Three.js 侧填入：切换自动旋转 */
   const autoRotateRef = useRef<((on: boolean) => void) | null>(null);
-  /** 由 Three.js 侧填入：把模式转盘转到指定角度 */
-  const spinDialRef = useRef<((angle: number) => void) | null>(null);
+  /** 由 Three.js 侧填入：把指定转盘转到指定角度 */
+  const spinDialRef = useRef<((partId: string, angle: number) => void) | null>(null);
 
   const selectedPart: CameraPart | null = selectedPartId
     ? partById(selectedPartId) ?? null
@@ -211,13 +219,13 @@ export default function CameraModel({ base }: Props) {
           start: number;
           duration: number;
         },
-        dialSpin: null as null | {
+        dialSpins: new Map<string, {
           pivot: any;
           from: number;
           to: number;
           start: number;
           duration: number;
-        },
+        }>(),
         highlightMaterials,
         raf: 0,
       };
@@ -242,24 +250,24 @@ export default function CameraModel({ base }: Props) {
       };
 
       /**
-       * 模式转盘旋转：和视角切换一样做限时补间。
+       * 转盘旋转：和视角切换一样做限时补间。
        * 角度按最短路径归一化到 (-PI, PI]，避免从 M 回 P 时转了 270° 的长路。
        */
-      spinDialRef.current = (angle) => {
-        const pivot = cameraModel.dialPivots.get('mode-dial');
+      spinDialRef.current = (partId, angle) => {
+        const pivot = cameraModel.dialPivots.get(partId);
         if (!pivot) return;
         const from = pivot.rotation.y;
         let delta = angle - from;
         while (delta > Math.PI) delta -= Math.PI * 2;
         while (delta <= -Math.PI) delta += Math.PI * 2;
         if (Math.abs(delta) < 1e-4) return;
-        runtime.dialSpin = {
+        runtime.dialSpins.set(partId, {
           pivot,
           from,
           to: from + delta,
           start: performance.now(),
           duration: 420,
-        };
+        });
       };
 
       // 用户一上手就停掉自动旋转，别和手动操作抢方向
@@ -331,13 +339,15 @@ export default function CameraModel({ base }: Props) {
           if (t >= 1) runtime.flight = null;
         }
 
-        // 模式转盘的旋转补间，用和视角切换相同的缓动曲线保持手感一致
-        const spin = runtime.dialSpin;
-        if (spin) {
-          const t = Math.min(1, (performance.now() - spin.start) / spin.duration);
-          const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-          spin.pivot.rotation.y = spin.from + (spin.to - spin.from) * e;
-          if (t >= 1) runtime.dialSpin = null;
+        // 转盘旋转补间，用和视角切换相同的缓动曲线保持手感一致
+        if (runtime.dialSpins.size > 0) {
+          const now = performance.now();
+          runtime.dialSpins.forEach((spin, id) => {
+            const t = Math.min(1, (now - spin.start) / spin.duration);
+            const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            spin.pivot.rotation.y = spin.from + (spin.to - spin.from) * e;
+            if (t >= 1) runtime.dialSpins.delete(id);
+          });
         }
 
         controls.update();
@@ -584,7 +594,15 @@ export default function CameraModel({ base }: Props) {
     setModeId(mode.id);
     setAutoRotate(false);
     autoRotateRef.current?.(false);
-    spinDialRef.current?.(mode.angle);
+    spinDialRef.current?.('mode-dial', mode.angle);
+  };
+
+  /** 拨曝光补偿转盘：转盘转到对应刻度，读数同步 */
+  const handleEvChange = (next: number) => {
+    setEv(next);
+    setAutoRotate(false);
+    autoRotateRef.current?.(false);
+    spinDialRef.current?.('exposure-comp-dial', evAngle(next));
   };
 
   /** 选中部件：顺带飞到看得见它的那一面 */
@@ -772,6 +790,39 @@ export default function CameraModel({ base }: Props) {
               <p className="camera-model__mode-desc">{activeMode.description}</p>
               <a className="camera-model__mode-link" href={simulatorHref(base, activeMode)}>
                 用这档去曝光模拟器试试 →
+              </a>
+            </div>
+          )}
+
+          {/* 曝光补偿转盘：±3EV 整档，拨完可带着补偿量去模拟器看画面明暗 */}
+          {selectedPart.id === 'exposure-comp-dial' && (
+            <div className="camera-model__modes">
+              <div className="camera-model__evs" role="group" aria-label="曝光补偿档位">
+                {EV_STEPS.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    className={`camera-model__ev${s === ev ? ' is-active' : ''}`}
+                    onClick={() => handleEvChange(s)}
+                    aria-pressed={s === ev}
+                    title={`${formatEv(s)} EV`}
+                  >
+                    {formatEv(s)}
+                  </button>
+                ))}
+              </div>
+              <p className="camera-model__mode-desc">
+                {ev === 0
+                  ? '转到 0 位时相机按测光结果曝光，不做增减。'
+                  : ev > 0
+                    ? `往 + 拨 ${ev} 档，画面整体提亮 ${ev} 倍档，适合雪景、逆光这类相机容易压暗的场面。`
+                    : `往 - 拨 ${-ev} 档，画面整体压暗，适合舞台光、夜景里相机容易提亮过头的场面。`}
+              </p>
+              <a
+                className="camera-model__mode-link"
+                href={`${base}/lab/simulator/?scene=portrait&ev=${ev}`}
+              >
+                去曝光模拟器看效果 →
               </a>
             </div>
           )}

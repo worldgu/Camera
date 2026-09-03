@@ -9,7 +9,10 @@ import {
   ISOS,
   SHUTTERS,
   backgroundBlur,
+  clampEvComp,
   compensate,
+  EV_COMP_MAX,
+  EV_COMP_MIN,
   exposureError,
   formatAperture,
   formatIso,
@@ -34,8 +37,18 @@ const DEFAULTS: Params = {
  * 从 URL query 读预设，供教程文章跳转时带参数（需求 10.6），
  * 以及相机模型的模式转盘拨档后跳过来（需求 10.2 转盘联动）。
  */
-function readPreset(): { params: Params; scene: SceneKey; mode: CameraMode | null } {
-  const fallback = { params: DEFAULTS, scene: 'portrait' as SceneKey, mode: null };
+function readPreset(): {
+  params: Params;
+  scene: SceneKey;
+  mode: CameraMode | null;
+  evComp: number;
+} {
+  const fallback = {
+    params: DEFAULTS,
+    scene: 'portrait' as SceneKey,
+    mode: null,
+    evComp: 0,
+  };
   if (typeof window === 'undefined') return fallback;
 
   const q = new URLSearchParams(window.location.search);
@@ -99,6 +112,7 @@ function readPreset(): { params: Params; scene: SceneKey; mode: CameraMode | nul
     },
     scene,
     mode,
+    evComp: clampEvComp(Number(q.get('ev') ?? 0)),
   };
 }
 
@@ -125,6 +139,12 @@ export default function ExposureSimulator({ base }: Props) {
   const [scene, setScene] = useState<SceneKey>('portrait');
   const [autoExposure, setAutoExposure] = useState(false);
   const [fromMode, setFromMode] = useState<CameraMode | null>(null);
+  /**
+   * 曝光补偿（整档）。语义上它是「在相机测光基准上人为偏移」，
+   * 所以拿它去挪场景的正确曝光基准：+1 意味着你要求比测光结果亮一档，
+   * 于是同一组参数算出来的偏差 +1，画面随之提亮。
+   */
+  const [evComp, setEvComp] = useState(0);
   const [bins, setBins] = useState<number[]>(() => new Array(256).fill(0));
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
@@ -135,10 +155,16 @@ export default function ExposureSimulator({ base }: Props) {
     setParams(preset.params);
     setScene(preset.scene);
     setFromMode(preset.mode);
+    setEvComp(preset.evComp);
   }, []);
 
   const meta = SCENES.find((s) => s.key === scene) ?? SCENES[0];
-  const ev = exposureError(params, meta.light);
+  /**
+   * 补偿把「正确曝光」的目标往下挪：要求比测光亮一档，等于基准降一档。
+   * 自动曝光补偿也用这个有效基准，否则打开自动曝光后补偿会被悄悄抹平。
+   */
+  const effectiveLight = meta.light - evComp;
+  const ev = exposureError(params, effectiveLight);
   const layers = useMemo(() => layersOf(scene), [scene]);
 
   // 渲染：参数或场景变化就重画，并回采直方图
@@ -199,7 +225,7 @@ export default function ExposureSimulator({ base }: Props) {
       } else {
         next.isoIndex = Math.max(0, Math.min(ISOS.length - 1, prev.isoIndex + delta));
       }
-      return autoExposure ? compensate(prev, next, key, meta.light) : next;
+      return autoExposure ? compensate(prev, next, key, effectiveLight) : next;
     });
   };
 
@@ -275,6 +301,15 @@ export default function ExposureSimulator({ base }: Props) {
           atMax={params.isoIndex === ISOS.length - 1}
           onStep={(d) => step('iso', d)}
         />
+        <Dial
+          label="曝光补偿"
+          sub="EV"
+          name="ev"
+          value={evComp === 0 ? '±0' : `${evComp > 0 ? '+' : ''}${evComp}`}
+          atMin={evComp === EV_COMP_MIN}
+          atMax={evComp === EV_COMP_MAX}
+          onStep={(d) => setEvComp((prev) => clampEvComp(prev + d))}
+        />
 
         <label className="sim__auto">
           <input
@@ -288,7 +323,14 @@ export default function ExposureSimulator({ base }: Props) {
           打开后调一个参数，另一个会反向补偿，总曝光保持不变。
         </p>
 
-        <button type="button" className="sim__reset" onClick={() => setParams(DEFAULTS)}>
+        <button
+          type="button"
+          className="sim__reset"
+          onClick={() => {
+            setParams(DEFAULTS);
+            setEvComp(0);
+          }}
+        >
           恢复默认
         </button>
       </div>

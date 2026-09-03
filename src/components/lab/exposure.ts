@@ -106,3 +106,12 @@ export function noiseAmount(isoIndex: number): number {
   const t = isoIndex / (ISOS.length - 1);
   return t * t;
 }
+
+/** 曝光补偿范围（整档），与 cameraModes.ts 的 EV_STEPS 对齐 */
+export const EV_COMP_MIN = -3;
+export const EV_COMP_MAX = 3;
+
+export function clampEvComp(ev: number): number {
+  if (!Number.isFinite(ev)) return 0;
+  return Math.max(EV_COMP_MIN, Math.min(EV_COMP_MAX, Math.round(ev)));
+}

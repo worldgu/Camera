@@ -1,0 +1,19 @@
+.gitignore
+  s_fbabbef51565bc::t_e0500278896cdf 19-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9b0797200087a8c8826d445395ecf1cf7fa72f08",
+  "prompts": {},
+  "sessions": {
+    "s_fbabbef51565bc": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1790649780662749600",
+        "model": "unknown"
+      },
+      "human_author": "zhangchunhai <zhangsihai@jtexpress.com>"
+    }
+  }
+}

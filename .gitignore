@@ -16,3 +16,7 @@ sim*.png
 # 本地验证截图与抓取的参考资料
 work/
 work_*.txt
+
+# Windows 环境变量路径残留
+/ProgramData/
+**/%SystemDrive%/
